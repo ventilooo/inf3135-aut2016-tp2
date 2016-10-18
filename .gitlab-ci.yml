@@ -1,0 +1,33 @@
+stage:
+    - test
+
+before-script:
+    - apt-get update -yyq
+    - apt-get upgrade -yyq --no-recomand-install
+    - apt-get install git graphiz --no-recommand-install 
+    - git clone (jansson)
+    - gcc --version
+
+ubuntu-14.04:
+    image: ubuntu:14.04
+    stage: test
+    script:
+        - make
+        - make data
+        - make test
+
+ubuntu-16.04:
+    image: ubuntu:16.04
+    stage: test
+    script: 
+        - make 
+        - make data
+        - make test
+
+malt:
+    image: centos:
+    stage: test
+    script:
+        - make
+        - make data
+        - make test
