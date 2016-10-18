@@ -5,7 +5,8 @@
 ## Description
 
 Description du projet en quelques phrases.
-Mentionner le contexte (cours, sigle, université, etc.).
+
+(Construction et maintenance de logiciels, INF3135, UQAM, Automne 2016)
 
 ## Auteurs
 
