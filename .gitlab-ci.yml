@@ -4,7 +4,7 @@ stages:
 before_script:
     - apt-get update -yyq
     - apt-get upgrade -yyq --no-install-recommends
-    - apt-get install git graphiz make --no-recommand-install 
+    - apt-get install git graphiz make autoconf automake libtool --no-install-recommends
     - git clone https://github.com/akheron/jansson.git && cd jansson
     - autoreconf -fi
     - ./configure && make && make check && make install
