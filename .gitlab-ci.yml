@@ -1,11 +1,13 @@
-stage:
+stages:
     - test
 
-before-script:
-    - apt-get update -yyq
-    - apt-get upgrade -yyq --no-recomand-install
-    - apt-get install git graphiz --no-recommand-install 
-    - git clone (jansson)
+before_script:
+    - apt-get -yqq update
+    - apt-get -yqq upgrade --no-install-recommends
+    - apt-get -yqq install bunzip2 git graphviz make autoconf automake libtool --no-install-recommends
+    - curl http://www.digip.org/jansson/releases/jansson-2.9.tar.gz
+    - bunzip1 -c jansson-2.9.tar.gz | tar xf && -cd jansson-2.9
+    - ./configure && make && make check && make install
     - gcc --version
 
 ubuntu-14.04:
@@ -21,13 +23,5 @@ ubuntu-16.04:
     stage: test
     script: 
         - make 
-        - make data
-        - make test
-
-malt:
-    image: centos:
-    stage: test
-    script:
-        - make
         - make data
         - make test
