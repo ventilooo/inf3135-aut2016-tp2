@@ -1,28 +1,30 @@
-# Travail pratique 2
+# Travail pratique 2 
+
+[![build status](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/badges/master/build.svg)](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/commits/master)
 
 ## Description
 
 Description du projet en quelques phrases.
-Mentionner le contexte (cours, sigle, université, etc.).
+Mentionner le contexte (cours, sigle, universitÃ©, etc.).
 
 ## Auteurs
 
-- Prénom et nom (Code permanent)
-- Prénom et nom (Code permanent)
-- Prénom et nom (Code permanent)
+- Pascal Vautour (VAUP05049304)
+- Nizar Semlali (SEMN14019103)
+- Istvan Szalai (SZAI29079604)
 
-## Plateformes supportées
+## Plateformes supportÃ©es
 
-Indiquez ici la liste des plateformes sur lesquelles le projet a été testé
-(MacOS, Ubuntu, Mint, Serveur Matl etc.). N'oubliez pas de préciser la version
+Indiquez ici la liste des plateformes sur lesquelles le projet a Ã©tÃ© testÃ©
+(MacOS, Ubuntu, Mint, Serveur Matl etc.). N'oubliez pas de prÃ©ciser la version
 de la plateforme (MacOS 10.10.5 Yosemite, Ubuntu 14.04 LTS, etc.).
 
-## Dépendances
+## DÃ©pendances
 
-Donnez la liste des bibliothèques et des logiciels qui doivent être installées
+Donnez la liste des bibliothÃ¨ques et des logiciels qui doivent Ãªtre installÃ©es
 pour que le projet soit fonctionnel. Donnez le lien vers ceux-ci pour que
-l'utilisateur puisse être redirigé vers les sites officiels des
-logiciels/bibliothèques pour effectuer l'installation le cas échéant. N'oubliez
+l'utilisateur puisse Ãªtre redirigÃ© vers les sites officiels des
+logiciels/bibliothÃ¨ques pour effectuer l'installation le cas Ã©chÃ©ant. N'oubliez
 pas d'indiquer
 
 ## Installation
@@ -33,37 +35,21 @@ nettoyer le dossier (make clean ?).
 
 ## Fonctionnement
 
-Expliquez brièvement comment utiliser votre programme avec au moins trois
-exemples d'utilisation (commande lancée et résultat affiché).  Assurez-vous que
-les exemples de commande lancée et de résultats obtenus sont formatés
-correctement à l'aide de Markdown.
+Expliquez briÃ¨vement comment utiliser votre programme avec au moins trois
+exemples d'utilisation (commande lancÃ©e et rÃ©sultat affichÃ©).  Assurez-vous que
+les exemples de commande lancÃ©e et de rÃ©sultats obtenus sont formatÃ©s
+correctement Ã  l'aide de Markdown.
 
 ## Contenu du projet
 
-Décrivez brièvement chacun des fichiers contenus dans le projet. Utilisez
-une liste à puce et décrivez-les de façon significative (une phrase par
+DÃ©crivez briÃ¨vement chacun des fichiers contenus dans le projet. Utilisez
+une liste Ã  puce et dÃ©crivez-les de faÃ§on significative (une phrase par
 fichier)
 
-## Références
+## RÃ©fÃ©rences
 
 Citez vos sources ici, s'il y a lieu.
 
 ## Statut
 
-Indiquez le statut actuel du projet et les bogues connus s'il y a lieu. Aussi,
-utilisez cette section pour indiquer la liste des tâches à effectuer pour
-compléter le projet en utilisant le [format spécial
-Markdown](https://docs.gitlab.com/ce/user/markdown.html#task-lists) :
-
-- [ ] Tâche 1
-
-  - [x] Sous-tâche 1.1 (complété par Alice)
-  - [ ] Sous-tâche 1.2 (responsable : Bob)
-
-- [ ] Tâche 2
-
-  - [ ] Sous-tâche 2.1 (responsable : Alice)
-  - [x] Sous-tâche 2.2 (complété par Bob)
-  - [ ] Sous-tâche 2.3 (responsable : Alice et Bob)
-
-- [ ] Tâche 3
+Indiquez le statut actuel du projet et les bogues connus s'il y a lieu.
