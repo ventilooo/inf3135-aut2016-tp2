@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <getopt.h>
 #include <stdlib.h>
-
+#include <string.h>
 /**
  * Lis les arguments passes au programme et initialise les parametres 
  * qui serviront a l'execution du programme.
@@ -13,14 +13,14 @@
 void getOpts(int argc, char *argv[]);
 void help();
 
-   char format[4] = "text";
-   char *filename;
-   bool showanguages = false;
-   bool showcapital = false;
-   bool showborders = false;
-   bool showflag = false;
-   char country[3];
-   char region[8];
+   char FORMAT[4] = "text";
+   char *FILENAME;
+   bool SHOWLANGUAGES = false;
+   bool SHOWCAPITAL = false;
+   bool SHOWBORDERS = false;
+   bool SHOWFLAG = false;
+   char COUNTRY[3];
+   char REGION[8];
    
 int main(int argc, char *argv[]){
     getOpts(argc,argv);
@@ -53,10 +53,11 @@ void getOpts(int argc, char *argv[]){
                 help();
                 break;
             case 'b':
-
+                strcpy(FORMAT, optarg);
+                printf("%s", FORMAT);
                 break;
             case 'c':
-
+                
                 break;
             case 'd':
 
