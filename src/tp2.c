@@ -12,7 +12,16 @@
  */
 void getOpts(int argc, char *argv[]);
 void help();
-
+/*
+   char[4] format = "text";
+   char *filename
+   bool show-languages = false;
+   bool show-capital = false;
+   bool show-borders = false;
+   bool show-flag = false;
+   char[3] country;
+   char[8] region;
+   */
 int main(int argc, char *argv[]){
     getOpts(argc,argv);
     return 0;
@@ -73,7 +82,20 @@ void getOpts(int argc, char *argv[]){
 
 //Imprime a l'ecran le message d'aide et termine le programme.
 void help(){
+    int c;
+    FILE *fHelp;
+    fHelp = fopen("help.txt", "r");
 
+    if(fHelp){
+        while ((c = getc(fHelp)) != EOF){
+            putchar(c);
+        }
+        fclose(fHelp);
+        exit(0);
+    }else{
+        printf("I/0 Exception");
+        exit(1);
+    }
 }
 
 
