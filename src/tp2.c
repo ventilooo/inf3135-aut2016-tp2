@@ -13,15 +13,15 @@
 void getOpts(int argc, char *argv[]);
 void help();
 
-   char FORMAT[4] = "text";
-   char *FILENAME;
-   bool SHOWLANGUAGES = false;
-   bool SHOWCAPITAL = false;
-   bool SHOWBORDERS = false;
-   bool SHOWFLAG = false;
-   char COUNTRY[3];
-   char REGION[8];
-   
+char FORMAT[4] = "text";
+char *FILENAME;
+bool SHOWLANGUAGES = false;
+bool SHOWCAPITAL = false;
+bool SHOWBORDERS = false;
+bool SHOWFLAG = false;
+char COUNTRY[3];
+char REGION[8];
+
 int main(int argc, char *argv[]){
     getOpts(argc,argv);
     return 0;
@@ -54,28 +54,27 @@ void getOpts(int argc, char *argv[]){
                 break;
             case 'b':
                 strcpy(FORMAT, optarg);
-                printf("%s", FORMAT);
                 break;
             case 'c':
-                
+                FILENAME =  optarg;
                 break;
             case 'd':
-
+                SHOWLANGUAGES = true;
                 break;   
             case 'e':
-
+                SHOWCAPITAL = true;
                 break;
             case 'f':
-
-                break; 
+                SHOWBORDERS = true;3
+                    break; 
             case 'g':
-
+                SHOWFLAG = true;
                 break;   
             case 'h':
-
+                strcpy(COUNTRY, optarg);
                 break;
             case 'i':
-
+                strcpy(REGION, optarg);
                 break;
         }
     }
