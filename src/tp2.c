@@ -12,16 +12,16 @@
  */
 void getOpts(int argc, char *argv[]);
 void help();
-/*
-   char[4] format = "text";
-   char *filename
-   bool show-languages = false;
-   bool show-capital = false;
-   bool show-borders = false;
-   bool show-flag = false;
-   char[3] country;
-   char[8] region;
-   */
+
+   char format[4] = "text";
+   char *filename;
+   bool showanguages = false;
+   bool showcapital = false;
+   bool showborders = false;
+   bool showflag = false;
+   char country[3];
+   char region[8];
+   
 int main(int argc, char *argv[]){
     getOpts(argc,argv);
     return 0;
