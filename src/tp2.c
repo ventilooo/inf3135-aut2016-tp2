@@ -3,6 +3,7 @@
 #include <getopt.h>
 #include <stdlib.h>
 #include <string.h>
+
 /**
  * Lis les arguments passes au programme et initialise les parametres 
  * qui serviront a l'execution du programme.
@@ -11,6 +12,9 @@
  * @param argv
  */
 void getOpts(int argc, char *argv[]);
+/**
+ * Imprime a l'ecran le message d'aide et termine le programme.
+ */
 void help();
 
 char FORMAT[4] = "text";
@@ -65,8 +69,8 @@ void getOpts(int argc, char *argv[]){
                 SHOWCAPITAL = true;
                 break;
             case 'f':
-                SHOWBORDERS = true;3
-                    break; 
+                SHOWBORDERS = true;
+                break; 
             case 'g':
                 SHOWFLAG = true;
                 break;   
@@ -80,7 +84,7 @@ void getOpts(int argc, char *argv[]){
     }
 }
 
-//Imprime a l'ecran le message d'aide et termine le programme.
+
 void help(){
     int c;
     FILE *fHelp;
