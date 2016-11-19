@@ -88,7 +88,7 @@ void getOpts(int argc, char *argv[]){
 void help(){
     int c;
     FILE *fHelp;
-    fHelp = fopen("help.txt", "r");
+    fHelp = fopen("../data/help.txt", "r");
 
     if(fHelp){
         while ((c = getc(fHelp)) != EOF){
