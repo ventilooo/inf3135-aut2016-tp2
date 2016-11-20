@@ -71,7 +71,7 @@ void getOpts(int argc, char *argv[]){
 void help(){
     int c;
     FILE *fHelp;
-    fHelp = fopen("../data/help.txt", "r");
+    fHelp = fopen("../src/help.txt", "r");
 
     if(fHelp){
         while ((c = getc(fHelp)) != EOF){
@@ -80,7 +80,7 @@ void help(){
         fclose(fHelp);
         exit(0);
     }else{
-        printf("I/0 Exception");
+        printf("I/0 Exception\n");
         exit(1);
     }
 }
