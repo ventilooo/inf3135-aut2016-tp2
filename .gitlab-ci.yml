@@ -4,10 +4,7 @@ stages:
 before_script:
     - apt-get -yqq update
     - apt-get -yqq upgrade --no-install-recommends
-    - apt-get -yqq install wget bzip2 git graphviz make autoconf automake libtool --no-install-recommends
-    - wget http://www.digip.org/jansson/releases/jansson-2.9.tar.bz2
-    - bunzip2 -c jansson-2.9.tar.bz2 | tar x --force && cd jansson-2.9
-    - ./configure && make && make check && make install && cd ..
+    - apt-get -yqq install wget bzip2 git graphviz build-essential libjansson-dev --no-install-recommends
 
 ubuntu-14.04:
     image: ubuntu:14.04
