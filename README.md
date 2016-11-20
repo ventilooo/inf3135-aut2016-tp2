@@ -16,9 +16,9 @@ Description du projet en quelques phrases.
 
 ## Plateformes supportées
 
-Indiquez ici la liste des plateformes sur lesquelles le projet a été testé
-(MacOS, Ubuntu, Mint, Serveur Matl etc.). N'oubliez pas de préciser la version
-de la plateforme (MacOS 10.10.5 Yosemite, Ubuntu 14.04 LTS, etc.).
+* Ubuntu 14.04
+* Ubuntu 16.04
+* mac OS Sierra 10.12.1
 
 ## Dépendances
 
