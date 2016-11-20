@@ -13,8 +13,8 @@ clean:
 	rm -f $(EXEC) $(OBJECTS)
 
 data:
-	git submodule add git@github.com:ablondin/countries.git ../data
-	git submodule init
-	git submodule update
+	git submodule add git@github.com:ablondin/countries.git/ data/	
+	/data git submodule init
+	/data git submodule update
 
 		
