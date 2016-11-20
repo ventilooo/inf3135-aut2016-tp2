@@ -1,12 +1,20 @@
-tp2:
-	gcc src/tp2.c -o bin/tp2 -W
-
-test:
-
-data:
-
-.PHONY: clean
+CC = gcc
+CFLAGS = -Wall
+LFLAGS =
+OBJECTS := $(patsubst %.c,%.o,$(wildcard src/*.c))
+EXEC = bin/tp2
+$(EXEC): $(OBJECTS)
+	$(CC) $(LFLAGS) -o $(EXEC) $(OBJECTS)
+%.o: %.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+.PHONY: clean data
 
 clean:
-	rm bin/*
+	rm -f $(EXEC) $(OBJECTS)
 
+data:
+	git submodule add git@github.com:ablondin/countries.git ../data
+	git submodule init
+	git submodule update
+
+		
