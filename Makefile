@@ -1,12 +1,12 @@
 CC = gcc
-CFLAGS = -Wall
-LFLAGS =
+CFLAGS = `pkg-config --cflags jansson`
+LFLAGS = `pkg-config --libs jansson`
 OBJECTS := $(patsubst %.c,%.o,$(wildcard src/*.c))
 EXEC = bin/tp2
 $(EXEC): $(OBJECTS)
 	$(CC) $(LFLAGS) -o $(EXEC) $(OBJECTS)
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c $< 
 .PHONY: clean data
 
 clean:
