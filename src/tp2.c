@@ -94,7 +94,9 @@ void getPays(bool showlanguages, bool showcapital, bool showflag, char country[]
 }
 
 void initJson(json_t *objetJson){
-
+ 
+    objetJson = json_load_file("../data/countries/countries.json", 0, NULL);
+    /*
     json_t *countries;
     countries = fopen("../data/countries/countries.json", "r");
 
@@ -108,5 +110,5 @@ void initJson(json_t *objetJson){
         printf("I/0 Exception\n");
         exit(1);
     }
-
+*/
 }

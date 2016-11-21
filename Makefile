@@ -4,7 +4,7 @@ LFLAGS = `pkg-config --libs jansson`
 OBJECTS := $(patsubst %.c,%.o,$(wildcard src/*.c))
 EXEC = bin/tp2
 $(EXEC): $(OBJECTS)
-	$(CC) $(LFLAGS) -o $(EXEC) $(OBJECTS)
+	$(CC) $(LFLAGS) -o $(EXEC) $(OBJECTS) -ljansson
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $< 
 .PHONY: clean data
