@@ -9,6 +9,8 @@ bool SHOWFLAG = false;
 char COUNTRY[3];
 char REGION[8];
 
+void getPays(bool showlanguages, bool showcapital, bool showflag, char country[], char region[] );
+
 int main(int argc, char *argv[]){
     getOpts(argc,argv);
     return 0;
@@ -85,5 +87,28 @@ void help(){
     }
 }
 
+void getPays(bool showlanguages, bool showcapital, bool showflag, char country[], char region[] ){
 
+    
 
+}
+
+void initJson(json_t *objetJson){
+ 
+    objetJson = json_load_file("../data/countries/countries.json", 0, NULL);
+    /*
+    json_t *countries;
+    countries = fopen("../data/countries/countries.json", "r");
+
+ if(countries){
+        
+        json_object_update(objetJson, countries); 
+        
+        fclose(countries);
+        
+    }else{
+        printf("I/0 Exception\n");
+        exit(1);
+    }
+*/
+}

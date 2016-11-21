@@ -3,6 +3,7 @@
 #include <getopt.h>
 #include <stdlib.h>
 #include <string.h>
+#include <jansson.h>
 
 /**
  *  * Lis les arguments passes au programme et initialise les parametres 
