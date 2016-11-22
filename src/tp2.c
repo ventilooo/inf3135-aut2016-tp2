@@ -45,8 +45,8 @@ int main(int argc, char *argv[]){
     
     printf(" Abréviation 3 lettres : %s \n", COUNTRY) ;
     printf(" Index : %d \n" , indexPays) ; 
-    //printf(" Capitale : %s \n", capitale) ; 
-    //printf(" Nom Pays : %s \n", nomPays) ; 
+    printf(" Capitale : %s \n", capitale) ; 
+    printf(" Nom Pays : %s \n", nomPays) ; 
     
     return 0;
 }
@@ -166,7 +166,16 @@ char* getCapitale(json_t *objetJson, int indexPays) {
 
 char* getNomPays(json_t *objetJson, int indexPays) {
 
-	return ""; 
+	json_t *paysCible;
+	json_t *nomsDuPays ;
+	json_t *nomCommun;
+	
+	paysCible = json_array_get(objetJson, indexPays);
+	nomsDuPays = json_object_get(paysCible,"name");  
+	nomCommun = json_object_get(nomsDuPays,"common");
+    char *nomCommunPays = json_string_value(nomCommun);
+     
+    return nomCommunPays ;
 	
 }
 
