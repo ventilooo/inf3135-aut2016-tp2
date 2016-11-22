@@ -1,5 +1,6 @@
 #include "tp2.h"
 #include "country.h"
+#define MAXLENGTH 352
 
 struct Countries_args {
     char *FILENAME;
@@ -39,7 +40,9 @@ int main(int argc, char *argv[]){
     nomPays = getNomPays(objetJson, indexPays); 
     
     // Affichage des langues
-    printLangues(objetJson, indexPays); 
+    char strLangues[MAXLENGTH] ; 
+    getLangues(objetJson, indexPays, strLangues); 
+    printf("%s", strLangues) ; 
     
     printf(" Abréviation 3 lettres : %s \n", countries_args->COUNTRY);
     printf(" Index : %d \n" , indexPays); 

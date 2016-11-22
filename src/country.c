@@ -1,4 +1,6 @@
-#include "country.h"
+#include "country.h" 
+
+
 
 int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays) {
 
@@ -47,20 +49,26 @@ char* getNomPays(json_t *objetJson, int indexPays) {
     return nomCommunPays;
 }
 
-void printLangues (json_t *objetJson, int indexPays) {
+void getLangues(json_t *objetJson, int indexPays, char* strLangues) {
 
 	json_t *paysCible; 
 	json_t *languesDuPays; 
 	const char *key;
-    	json_t *value;
+    json_t *value;
+    char *langue ;
 	
 	paysCible = json_array_get(objetJson, indexPays) ; 
 	languesDuPays = json_object_get(paysCible,"languages");
-	printf("Languages: ");
 	json_object_foreach(languesDuPays, key, value) {
-		printf("%s, ",json_string_value(value)); 
+		langue = json_string_value(value) ; 
+		if(strlen(strLangues) == 0 ) {
+			strcat(strLangues,langue);
+		} else {
+		strcat(strLangues,", "); 
+		strcat(strLangues,langue);
+		}
 	}
-	printf("\n");
+
 } 
 
 
