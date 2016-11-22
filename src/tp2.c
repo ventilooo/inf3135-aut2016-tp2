@@ -39,7 +39,7 @@ int main(int argc, char *argv[]){
     nomPays = getNomPays(objetJson, indexPays); 
     
     // Affichage des langues
-    char strLangues[MAXLENGTH] ; 
+    char strLangues[MAXLENGTHLANGUES] ; 
     getLangues(objetJson, indexPays, strLangues); 
     printf("%s", strLangues) ; 
     
