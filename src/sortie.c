@@ -28,9 +28,28 @@ void addPays(FILE fGraph, int pays){
     fprintf(fGraph," <tr><td align=\"left\" border=\"1\"><b>Name</b>: %s</td></tr>", getPays(pays));
     fprintf(fGraph, "<tr><td align=\"left\" border=\"1\"><b>Code</b>: %s</td></tr>", pays);
     fprintf(fGraph, "<tr><td align=\"left\" border=\"1\"><b>Capital</b>: %s</td></tr>", getCapital());
-    fprintf(fGraph, "<tr><td align=\"left\" border=\"1\"><b>Language</b>: French, English</td></tr>", getLanguage());
+ languages(fGraph, pays, languages);
     fprintf(fGraph, "<tr><td align=\"left\" border="1"><b>Borders</b>: %s</td></tr>", getBorders());
     fprintf(fGraph, "  </table>>");
     fprintf(fGraph, " ];");
 
+}
+
+void languages(FILE fGraph, int pays, bool languages){
+    if(languages){
+        fprintf(fGraph, "<tr><td align=\"left\" border=\"1\"><b>Language</b>: %s</td></tr>", getLanguage(pays));
+    }
+}
+
+void capital(FILE fGraph, int pays, bool capital){
+    if(capital){
+        fprintf(fGraph, "<tr><td align=\"left\" border=\"1\"><b>Capital</b>: %s</td></tr>", getCapital(pays));
+    }
+}
+
+void borders(FILE fGraph, int pays, bool borders){
+    if(borders){
+    
+    fprintf(fGraph, "<tr><td align=\"left\" border="1"><b>Borders</b>: %s</td></tr>", getBorders());
+}
 }
