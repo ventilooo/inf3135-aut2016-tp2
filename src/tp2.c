@@ -162,7 +162,14 @@ int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays) {
 
 char* getCapitale(json_t *objetJson, int indexPays) {
 	
-	return "";
+	 json_t *paysCible;
+	 json_t *valeurCapitale ; 
+	
+	 paysCible = json_array_get(objetJson, indexPays);
+     valeurCapitale = json_object_get(paysCible, "capital");
+     char *capitale = json_string_value(valeurCapitale);
+     
+     return capitale ;
 
 }
 
