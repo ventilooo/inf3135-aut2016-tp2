@@ -13,5 +13,4 @@ clean:
 	rm -f $(EXEC) $(OBJECTS)
 
 data:
-	git submodule init ./data/countries
-	git submodule update ./data/countries
+	git submodule update --init --recursive ./data/countries
