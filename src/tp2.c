@@ -1,30 +1,25 @@
 #include "tp2.h"
+#include "country.h"
 
-char FORMAT[4] = "text";
-char *FILENAME;
-bool SHOWLANGUAGES = false;
-bool SHOWCAPITAL = false;
-bool SHOWBORDERS = false;
-bool SHOWFLAG = false;
-char COUNTRY[4];
-char REGION[8];
-int indexPays ; 
-char *capitale ; 
-char *nomPays ; 
+struct Countries_args {
+    char *FILENAME;
+    char FORMAT[4];
+    bool SHOWLANGUAGES;
+    bool SHOWCAPITAL;
+    bool SHOWBORDERS;
+    bool SHOWFLAG;
+    char COUNTRY[4];
+    char REGION[8];
+};
 
-void getOpts(int argc, char *argv[]) ; 
-void help() ; 
-int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays ) ; 
-char* getCapitale(json_t *objetJson, int indexPays) ; 
-char* getNomPays(json_t *objetJson, int indexPays) ;
-void printLangues (json_t *objetJson, int indexPays) ;
-void affichage(bool SHOWCAPITAL, bool SHOWLANGUAGES, bool SHOWFLAG, bool SHOWBORDERS, char country[], char region[] );
-
+int indexPays; 
+char *capitale; 
+char *nomPays;
 
 int main(int argc, char *argv[]){
 
     //Récupération des arguments
-    getOpts(argc,argv);
+    struct Countries_args *countries_args = getOpts(argc,argv);
     
     //Init objet Json du dossier data 
     json_t *objetJson ; 
@@ -35,29 +30,27 @@ int main(int argc, char *argv[]){
     // printf("Nombre total pays : %d\n",nombreTotalPays);
  
     // Récupération de l'index du pays en fonction du nom récupéré
-    indexPays = getIndexPays(objetJson,COUNTRY,nombreTotalPays) ; 
+    indexPays = getIndexPays(objetJson,countries_args->COUNTRY,nombreTotalPays); 
     
     // Récupération de la capitale du pays en question 
-     capitale = getCapitale(objetJson, indexPays) ; 
+    capitale = getCapitale(objetJson, indexPays); 
     
     // Récupération du nom du pays 
-     nomPays = getNomPays(objetJson, indexPays) ; 
+    nomPays = getNomPays(objetJson, indexPays); 
     
     // Affichage des langues
-    printLangues(objetJson, indexPays) ; 
+    printLangues(objetJson, indexPays); 
     
-    printf(" Abréviation 3 lettres : %s \n", COUNTRY) ;
-    printf(" Index : %d \n" , indexPays) ; 
-    printf(" Capitale : %s \n", capitale) ; 
-    printf(" Nom Pays : %s \n", nomPays) ; 
-    
+    printf(" Abréviation 3 lettres : %s \n", countries_args->COUNTRY);
+    printf(" Index : %d \n" , indexPays); 
+    printf(" Capitale : %s \n", capitale); 
+    printf(" Nom Pays : %s \n", nomPays); 
     return 0;
 }
 
+struct Countries_args *getOpts(int argc, char *argv[]){
 
-
-
-void getOpts(int argc, char *argv[]){
+    struct Countries_args *p = malloc(sizeof(struct Countries_args));
 
     int option;
     int index;
@@ -80,144 +73,62 @@ void getOpts(int argc, char *argv[]){
         switch (option){
 
             case 'a':
-                help();
+                usage();
                 break;
             case 'b':
-                strcpy(FORMAT, optarg);
+                strcpy(p->FORMAT, optarg);
                 break;
             case 'c':
-                FILENAME =  optarg;
+                p->FILENAME =  optarg;
                 break;
             case 'd':
-                SHOWLANGUAGES = true;
+                p->SHOWLANGUAGES = true;
                 break;   
             case 'e':
-                SHOWCAPITAL = true;
+                p->SHOWCAPITAL = true;
                 break;
             case 'f':
-                SHOWBORDERS = true;
+                p->SHOWBORDERS = true;
                 break; 
             case 'g':
-                SHOWFLAG = true;
+                p->SHOWFLAG = true;
                 break;   
             case 'h':
-                strcpy(COUNTRY, optarg);
+                strcpy(p->COUNTRY, optarg);
                 break;
             case 'i':
-                strcpy(REGION, optarg);
+                strcpy(p->REGION, optarg);
                 break;
         }
     }
+    return p;
 }
 
-
-
-void help(){
-    int c;
-    FILE *fHelp;
-    fHelp = fopen("../src/help.txt", "r");
-
-    if(fHelp){
-        while ((c = getc(fHelp)) != EOF){
-            putchar(c);
-        }
-        fclose(fHelp);
-        exit(0);
-    }else{
-        printf("I/0 Exception\n");
-        exit(1);
-    }
-}
-
-
-int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays) {
-
-	int indexPays = 0  ; 
-	json_t *paysCible ; 
-	json_t *ciocPays ; 
-	char *ciocCorrespondant ;
-	int i ; 
-	
-	
-	for ( i = 0 ; i < nombreTotalPays ; i++ ) {
-	
-		paysCible = json_array_get(objetJson, i);
-		ciocPays = json_object_get(paysCible,"cioc");
-		ciocCorrespondant = json_string_value(ciocPays) ;
-		if ( strcasecmp(pays, ciocCorrespondant) == 0 ) {
-			indexPays = i ;
-		}
-		
-	}
-	
-	return indexPays ; 
-	
-}
-
-char* getCapitale(json_t *objetJson, int indexPays) {
-	
-	 json_t *paysCible;
-	 json_t *valeurCapitale ; 
-	
-	 paysCible = json_array_get(objetJson, indexPays);
-     valeurCapitale = json_object_get(paysCible, "capital");
-     char *capitale = json_string_value(valeurCapitale);
-     
-     return capitale ;
-
-}
-
-char* getNomPays(json_t *objetJson, int indexPays) {
-
-	json_t *paysCible;
-	json_t *nomsDuPays ;
-	json_t *nomCommun;
-	
-	paysCible = json_array_get(objetJson, indexPays);
-	nomsDuPays = json_object_get(paysCible,"name");  
-	nomCommun = json_object_get(nomsDuPays,"common");
-    char *nomCommunPays = json_string_value(nomCommun);
-    
-    return nomCommunPays ;
-	
-}
-
- void printLangues (json_t *objetJson, int indexPays) {
-
-	json_t *paysCible; 
-	json_t *languesDuPays ; 
-	const char *key;
-    json_t *value;
-	
-	paysCible = json_array_get(objetJson, indexPays) ; 
-	languesDuPays = json_object_get(paysCible,"languages");
-	printf("Languages: ");
-	json_object_foreach(languesDuPays, key, value) {
-		printf("%s, ",json_string_value(value)) ; 
-	}
-
-	printf("\n");
-
-
-}
-
-
-
-void affichage(bool SHOWCAPITAL, bool SHOWLANGUAGES, bool SHOWFLAG, bool SHOWBORDERS, char country[], char region[] ){ 
-	
-	if ( SHOWCAPITAL ) {
-		
-	}  
-	
-	if ( SHOWLANGUAGES ) {
-		
-	}
-	
-	if ( SHOWBORDERS ) {
-	
-	}
-	
-
+void usage(){
+    fprintf(stderr,
+            "Usage: bin/tp2 [--help] [--output-format FORMAT] [--output-filename FILENAME]\n"
+            " [--show-languages] [--show-capital] [--show-borders] [--show-flag]\n"
+            " [--country COUNTRY] [--region REGION]\n"
+            "\nDisplays informations about countries.\n"
+            "\nOptional arguments:\n"
+            "    --help Show                this help message and exit.\n"  
+            "    --output-format FORMAT     Selects the ouput format (either \"text\", \"dot\" or \"png\").\n"
+            "                               The \"dot\" format is the one recognized by Graphviz.\n"
+            "                               The default format is \"text\".\n"
+            "    --output-filename FILENAME The name of the output filename. This argument is\n"
+            "                               mandatory for the \"png\" format. For the \"text\" and \"dot\"\n"
+            "                               format, the result is printed on stdout if no output\n"
+            "                               filename is given.\n"
+            "    --show-languages           The official languages of each country are displayed.\n"
+            "    --show-capital             The capital of each country is displayed.\n"
+            "    --show-borders             The borders of each country is displayed.\n"
+            "    --show-flag                The flag of each country is displayed.\n"
+            "                               (only for \"dot\" and \"png\" format).\n"
+            "    --country COUNTRY          The country code (e.g \"can\", \"usa\") to ble displayed.\n"
+            "    --region REGION            The region of the countries to displayed.\n"
+            "                               The supported regions are \"africa\", \"americas\",\n"
+            "                               \"asia\", \"europe\" and \"oceania\".\n"
+            "\n");
 }
 
 
