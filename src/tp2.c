@@ -17,7 +17,8 @@ void help() ;
 int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays ) ; 
 char* getCapitale(json_t *objetJson, int indexPays) ; 
 char* getNomPays(json_t *objetJson, int indexPays) ;
-void getPays(bool showlanguages, bool showcapital, bool showflag, char country[], char region[] );
+void printLangues (json_t *objetJson, int indexPays) ;
+void affichage(bool SHOWCAPITAL, bool SHOWLANGUAGES, bool SHOWFLAG, bool SHOWBORDERS, char country[], char region[] );
 
 
 int main(int argc, char *argv[]){
@@ -31,17 +32,19 @@ int main(int argc, char *argv[]){
     
     // Récupération du nombre total de pays
     int nombreTotalPays = json_array_size(objetJson);
-    printf("Nombre total pays : %d",nombreTotalPays);
+    // printf("Nombre total pays : %d\n",nombreTotalPays);
  
     // Récupération de l'index du pays en fonction du nom récupéré
     indexPays = getIndexPays(objetJson,COUNTRY,nombreTotalPays) ; 
     
     // Récupération de la capitale du pays en question 
-    capitale = getCapitale(objetJson, indexPays) ; 
+     capitale = getCapitale(objetJson, indexPays) ; 
     
     // Récupération du nom du pays 
-    nomPays = getNomPays(objetJson, indexPays) ; 
+     nomPays = getNomPays(objetJson, indexPays) ; 
     
+    // Affichage des langues
+    printLangues(objetJson, indexPays) ; 
     
     printf(" Abréviation 3 lettres : %s \n", COUNTRY) ;
     printf(" Index : %d \n" , indexPays) ; 
@@ -174,13 +177,48 @@ char* getNomPays(json_t *objetJson, int indexPays) {
 	nomsDuPays = json_object_get(paysCible,"name");  
 	nomCommun = json_object_get(nomsDuPays,"common");
     char *nomCommunPays = json_string_value(nomCommun);
-     
+    
     return nomCommunPays ;
 	
 }
 
+ void printLangues (json_t *objetJson, int indexPays) {
 
-void getPays(bool showlanguages, bool showcapital, bool showflag, char country[], char region[] ){   
+	json_t *paysCible; 
+	json_t *languesDuPays ; 
+	const char *key;
+    json_t *value;
+	
+	paysCible = json_array_get(objetJson, indexPays) ; 
+	languesDuPays = json_object_get(paysCible,"languages");
+	printf("Languages: ");
+	json_object_foreach(languesDuPays, key, value) {
+		printf("%s, ",json_string_value(value)) ; 
+	}
+
+	printf("\n");
+
 
 }
+
+
+
+void affichage(bool SHOWCAPITAL, bool SHOWLANGUAGES, bool SHOWFLAG, bool SHOWBORDERS, char country[], char region[] ){ 
+	
+	if ( SHOWCAPITAL ) {
+		
+	}  
+	
+	if ( SHOWLANGUAGES ) {
+		
+	}
+	
+	if ( SHOWBORDERS ) {
+	
+	}
+	
+
+}
+
+
 
