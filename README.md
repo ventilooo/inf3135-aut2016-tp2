@@ -51,6 +51,8 @@ fichier)
 
 Citez vos sources ici, s'il y a lieu.
 
+## [Taches](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/boards)
+
 ## Statut
 
-Indiquez le statut actuel du projet et les bogues connus s'il y a lieu.
+Work In Progress
