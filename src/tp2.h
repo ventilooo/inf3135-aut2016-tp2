@@ -16,4 +16,4 @@ void getOpts(int argc, char *argv[]);
 /**
  *  * Imprime a l'ecran le message d'aide et termine le programme.
  *   */
-void help();
+void usage();
