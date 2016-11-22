@@ -1,6 +1,5 @@
 #include "tp2.h"
 #include "country.h"
-#define MAXLENGTH 352
 
 struct Countries_args {
     char *FILENAME;

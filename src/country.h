@@ -1,4 +1,6 @@
 #include "link.h"
+#define MAXLENGTH 352
+
 int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays); 
 char* getCapitale(json_t *objetJson, int indexPays); 
 char* getNomPays(json_t *objetJson, int indexPays);

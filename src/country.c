@@ -69,7 +69,7 @@ void getLangues(json_t *objetJson, int indexPays, char* strLangues) {
 		}
 	}
 
-} 
+}
 
 
 void affichage(bool SHOWCAPITAL, bool SHOWLANGUAGES, bool SHOWFLAG, bool SHOWBORDERS, char country[], char region[]){ 
