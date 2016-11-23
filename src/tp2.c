@@ -1,6 +1,6 @@
 #include "tp2.h"
 #include "country.h"
-
+/*
 struct Countries_args {
     char *FILENAME;
     char FORMAT[4];
@@ -8,53 +8,63 @@ struct Countries_args {
     bool SHOWCAPITAL;
     bool SHOWBORDERS;
     bool SHOWFLAG;
+    bool SHOWCOUNTRY;
+    bool SHOWREGION ; 
     char COUNTRY[4];
     char REGION[8];
 };
-
-int indexPays; 
-char *capitale; 
-char *nomPays;
+*/
+//int indexPays; 
+//char *capitale; 
+//char *nomPays;
 
 int main(int argc, char *argv[]){
 
-    //Récupération des arguments
-    struct Countries_args *countries_args = getOpts(argc,argv);
-    
-    //Init objet Json du dossier data 
+	//Init objet Json du dossier data 
     json_t *objetJson ; 
     objetJson = json_load_file("../data/countries/countries.json", 0, NULL);
-    
+       
     // Récupération du nombre total de pays
     int nombreTotalPays = json_array_size(objetJson);
     // printf("Nombre total pays : %d\n",nombreTotalPays);
+    
+    //Récupération des arguments
+    struct Countries_args *countries = getOpts(argc,argv);
+    //printf("region : %s \n",countries->REGION);
  
     // Récupération de l'index du pays en fonction du nom récupéré
-    indexPays = getIndexPays(objetJson,countries_args->COUNTRY,nombreTotalPays); 
-    
+    //indexPays = getIndexPays(objetJson,countries_args->COUNTRY,nombreTotalPays); 
     // Récupération de la capitale du pays en question 
-    capitale = getCapitale(objetJson, indexPays); 
+    //capitale = getCapitale(objetJson, indexPays); 
     
     // Récupération du nom du pays 
-    nomPays = getNomPays(objetJson, indexPays); 
+    //nomPays = getNomPays(objetJson, indexPays); 
     
     // Affichage des langues
-    char strLangues[MAXLENGTHLANGUES] ; 
-    getLangues(objetJson, indexPays, strLangues); 
-    printf("Langues : "); 
-    printf("%s", strLangues) ; 
-    printf("\n"); 
+    //char strLangues[MAXLENGTHLANGUES] ; 
+    //getLangues(objetJson, indexPays, strLangues); 
+    //printf("Langues : "); 
+    //printf("%s", strLangues) ; 
+    //printf("\n"); 
     
-    char strBorders[MAXLENGTHBORDERS];
-    getBorders(objetJson, indexPays, strBorders); 
-    printf("Borders : "); 
-    printf("%s", strBorders) ; 
-     printf("\n"); 
+    // Affichage des borders
+    //char strBorders[MAXLENGTHBORDERS];
+    //getBorders(objetJson, indexPays, strBorders); 
+    //printf("Borders : "); 
+    //printf("%s", strBorders) ; 
+    //printf("\n"); 
     
-    printf(" Abréviation 3 lettres : %s \n", countries_args->COUNTRY);
-    printf(" Index : %d \n" , indexPays); 
-    printf(" Capitale : %s \n", capitale); 
-    printf(" Nom Pays : %s \n", nomPays); 
+    affichage(countries, objetJson, nombreTotalPays) ; 
+    
+    // Tableau des fichiers de la meme region 
+    
+    struct region_info *r = getPaysMemeRegion(objetJson ,nombreTotalPays, countries->REGION) ;
+    
+    int i ;
+    for ( i = 0 ; i <  r->nombrePays ; i++ ) {
+    	printf("%d Pays : %d \n" ,i, r->listeIndexPays[i]) ; 
+    }
+     
     return 0;
 }
 
@@ -104,9 +114,11 @@ struct Countries_args *getOpts(int argc, char *argv[]){
                 p->SHOWFLAG = true;
                 break;   
             case 'h':
+                p->SHOWCOUNTRY = true;
                 strcpy(p->COUNTRY, optarg);
                 break;
             case 'i':
+            	p->SHOWREGION = true;
                 strcpy(p->REGION, optarg);
                 break;
         }

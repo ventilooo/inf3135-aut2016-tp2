@@ -95,17 +95,82 @@ void getBorders(json_t *objetJson,int indexPays, char* strBorders) {
 }
 
 
-void affichage(bool SHOWCAPITAL, bool SHOWLANGUAGES, bool SHOWFLAG, bool SHOWBORDERS, char country[], char region[]){ 
+
+struct region_info *getPaysMemeRegion(json_t *objetJson,int nombreTotalPays, char* REGION) {
+
+	struct region_info *r = malloc(sizeof(struct region_info));
+    
+	json_t *paysCible; 
+	json_t *regionPays; 
+	char *regionCorrespondante;
+	int i; 
+	int size = 0 ; 
+	//int* tab ;  
+
+	for ( i = 0 ; i < nombreTotalPays ; i++ ) {
 	
-	if ( SHOWCAPITAL ) {
-		
-	}  
-	
-	if ( SHOWLANGUAGES ) {
-		
+		paysCible = json_array_get(objetJson, i);
+		regionPays = json_object_get(paysCible,"region");
+		regionCorrespondante = json_string_value(regionPays) ;
+		if ( strcasecmp(REGION, regionCorrespondante) == 0 ) {
+			if ( size == 0 ) {
+				r->listeIndexPays = malloc(sizeof(int)) ; 
+				r->listeIndexPays[0] = i ; 
+				size++; 
+			} else {
+				size++ ; 
+				r->listeIndexPays = realloc(r->listeIndexPays,sizeof(int)*size);
+				r->listeIndexPays[size-1] = i ; 
+			}
+		}	
 	}
 	
-	if ( SHOWBORDERS ) {
-	
-	}
+	r->nombrePays = size ; 
+	return r ; 
+
+
 }
+
+
+void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTotalPays) { 
+
+	int indexPays; 
+	char *capitale; 
+	char *nomPays;
+	int i = 0 ;
+	
+	if ( countries->SHOWCOUNTRY ) {
+	
+		indexPays = getIndexPays(objetJson,countries->COUNTRY,nombreTotalPays);
+		nomPays = getNomPays(objetJson, indexPays); 
+		
+		printf("Name: %s \n",nomPays) ; 
+		printf("Code: ") ;
+		while(countries->COUNTRY[i]) {
+      		putchar(toupper(countries->COUNTRY[i]));
+      		i++;
+   		}
+	    printf("\n") ;
+		 
+		if ( countries->SHOWCAPITAL) {
+			capitale = getCapitale(objetJson, indexPays); 
+			printf("Capital: %s \n",capitale) ; 
+		}  
+		if ( countries->SHOWLANGUAGES ) {
+			char strLangues[MAXLENGTHLANGUES] ; 
+			getLangues(objetJson, indexPays, strLangues); 
+			printf("Languages: %s \n",strLangues) ; 
+		}
+		if ( countries->SHOWBORDERS ) {
+			char strBorders[MAXLENGTHBORDERS];
+    		getBorders(objetJson, indexPays, strBorders); 
+			printf("Borders: %s \n",strBorders) ;
+		}
+	} else if ( countries->SHOWREGION ) {
+		printf("Montrer la région \n") ; 
+	}
+	
+}
+	
+	
+	
