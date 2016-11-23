@@ -27,7 +27,7 @@ void getLangues(json_t *objetJson, int indexPays, char* strLangues);
 void getBorders(json_t *objetJson,int indexPays, char* strBorders);
 struct region_info *getPaysMemeRegion(json_t *objetJson, int nombreTotalPays, char* REGION) ; 
 void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTotalPays);
-
+char* getCode(json_t *objetJson, int nombreTotalPays,int indexPays);
 
 
 

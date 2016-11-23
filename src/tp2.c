@@ -30,25 +30,8 @@ int main(int argc, char *argv[]){
     //Récupération des arguments passés à l'execution : 
     struct Countries_args *countries = getOpts(argc,argv);
 
-
-    
-   
-    //char strBorders[MAXLENGTHBORDERS];
-    //getBorders(objetJson, indexPays, strBorders); 
-    //printf("Borders : "); 
-    //printf("%s", strBorders) ; 
-    //printf("\n"); 
-    
+	// AFFICHAGE : 
     affichage(countries, objetJson, nombreTotalPays) ; 
-    
-    // Tableau des fichiers de la meme region 
-    
-    struct region_info *r = getPaysMemeRegion(objetJson ,nombreTotalPays, countries->REGION) ;
-    
-    int i ;
-    for ( i = 0 ; i <  r->nombrePays ; i++ ) {
-    	printf("%d Pays : %d \n" ,i, r->listeIndexPays[i]) ; 
-    }
      
     return 0;
 }

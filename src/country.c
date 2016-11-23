@@ -128,6 +128,21 @@ struct region_info *getPaysMemeRegion(json_t *objetJson,int nombreTotalPays, cha
 	r->nombrePays = size ; 
 	return r ; 
 
+}
+
+char* getCode(json_t *objetJson, int nombreTotalPays,int indexPays) {
+	
+	json_t *paysCible;
+	json_t *codeDuPays;
+	json_t *nomCommun;
+	
+	paysCible = json_array_get(objetJson, indexPays);
+	codeDuPays = json_object_get(paysCible,"cioc");  
+	char *codePays = json_string_value(codeDuPays);
+    
+    return codePays;
+	
+
 
 }
 
@@ -137,7 +152,9 @@ void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTo
 	int indexPays; 
 	char *capitale; 
 	char *nomPays;
+	char *codePays ; 
 	int i = 0 ;
+	int j ;
 	
 	if ( countries->SHOWCOUNTRY ) {
 	
@@ -149,7 +166,7 @@ void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTo
 		
 		printf("Name: %s \n",nomPays) ; 
 		printf("Code: ") ;
-		// Conversion du code à 3 lettres en Majuscules pour l'affichage
+		// Conversion du code à 3 lettres en Majuscules pour l'affichage : 
 		while(countries->COUNTRY[i]) {
       		putchar(toupper(countries->COUNTRY[i]));
       		i++;
@@ -162,18 +179,53 @@ void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTo
 			printf("Capital: %s \n",capitale) ; 
 		}  
 		if ( countries->SHOWLANGUAGES ) {
-			// Affichage des langues
-			char strLangues[MAXLENGTHLANGUES] ; 
+			// Affichage des langues : 
+			char strLangues[MAXLENGTHLANGUES] = "" ; 
 			getLangues(objetJson, indexPays, strLangues); 
 			printf("Languages: %s \n",strLangues) ; 
 		}
 		if ( countries->SHOWBORDERS ) {
-			char strBorders[MAXLENGTHBORDERS];
+			 // Affichage des borders : 
+			char strBorders[MAXLENGTHBORDERS] = "" ;
     		getBorders(objetJson, indexPays, strBorders); 
 			printf("Borders: %s \n",strBorders) ;
 		}
 	} else if ( countries->SHOWREGION ) {
-		printf("Montrer la région \n") ; 
+	
+		// Tableau des fichiers de la meme region 
+		struct region_info *r = getPaysMemeRegion(objetJson ,nombreTotalPays, countries->REGION) ;
+    	for ( j = 0 ; j <  r->nombrePays ; j++ ) {
+    
+    		int indexCible = r->listeIndexPays[j] ; 
+    		// Récupération du nom du pays en question : 
+			nomPays = getNomPays(objetJson, indexCible);
+			printf("Name: %s \n",nomPays) ; 
+			
+			// Récupération du code à 3 lettre du pays en question : 
+			codePays = getCode(objetJson,nombreTotalPays,indexCible);
+			printf("Code: %s \n",codePays) ;
+			
+			if ( countries->SHOWCAPITAL) {
+				// Récupération de la capitale du pays en question :
+				capitale = getCapitale(objetJson, indexCible); 
+				printf("Capital: %s \n",capitale) ; 
+			}  
+			
+			if ( countries->SHOWLANGUAGES ) {
+				// Affichage des langues : 
+				char strLangues[MAXLENGTHLANGUES] = "" ; 
+				getLangues(objetJson, indexCible, strLangues); 
+				printf("Languages: %s \n",strLangues) ; 
+			}
+			if ( countries->SHOWBORDERS ) {
+				 // Affichage des borders : 
+				char strBorders[MAXLENGTHBORDERS] = "" ;
+    			getBorders(objetJson, indexCible, strBorders); 
+				printf("Borders: %s \n",strBorders) ;
+			}
+			
+    	}
+
 	}
 	
 }
