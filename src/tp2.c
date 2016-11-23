@@ -24,30 +24,15 @@ int main(int argc, char *argv[]){
     json_t *objetJson ; 
     objetJson = json_load_file("../data/countries/countries.json", 0, NULL);
        
-    // Récupération du nombre total de pays
+    // Récupération du nombre total de pays du fichier Json : 
     int nombreTotalPays = json_array_size(objetJson);
-    // printf("Nombre total pays : %d\n",nombreTotalPays);
     
-    //Récupération des arguments
+    //Récupération des arguments passés à l'execution : 
     struct Countries_args *countries = getOpts(argc,argv);
-    //printf("region : %s \n",countries->REGION);
- 
-    // Récupération de l'index du pays en fonction du nom récupéré
-    //indexPays = getIndexPays(objetJson,countries_args->COUNTRY,nombreTotalPays); 
-    // Récupération de la capitale du pays en question 
-    //capitale = getCapitale(objetJson, indexPays); 
+
+
     
-    // Récupération du nom du pays 
-    //nomPays = getNomPays(objetJson, indexPays); 
-    
-    // Affichage des langues
-    //char strLangues[MAXLENGTHLANGUES] ; 
-    //getLangues(objetJson, indexPays, strLangues); 
-    //printf("Langues : "); 
-    //printf("%s", strLangues) ; 
-    //printf("\n"); 
-    
-    // Affichage des borders
+   
     //char strBorders[MAXLENGTHBORDERS];
     //getBorders(objetJson, indexPays, strBorders); 
     //printf("Borders : "); 

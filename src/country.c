@@ -141,11 +141,15 @@ void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTo
 	
 	if ( countries->SHOWCOUNTRY ) {
 	
+		// Récupération de l'index du pays en fonction du nom récupéré
 		indexPays = getIndexPays(objetJson,countries->COUNTRY,nombreTotalPays);
+		
+		// Récupération du nom du pays en question : 
 		nomPays = getNomPays(objetJson, indexPays); 
 		
 		printf("Name: %s \n",nomPays) ; 
 		printf("Code: ") ;
+		// Conversion du code à 3 lettres en Majuscules pour l'affichage
 		while(countries->COUNTRY[i]) {
       		putchar(toupper(countries->COUNTRY[i]));
       		i++;
@@ -153,10 +157,12 @@ void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTo
 	    printf("\n") ;
 		 
 		if ( countries->SHOWCAPITAL) {
+			// Récupération de la capitale du pays en question :
 			capitale = getCapitale(objetJson, indexPays); 
 			printf("Capital: %s \n",capitale) ; 
 		}  
 		if ( countries->SHOWLANGUAGES ) {
+			// Affichage des langues
 			char strLangues[MAXLENGTHLANGUES] ; 
 			getLangues(objetJson, indexPays, strLangues); 
 			printf("Languages: %s \n",strLangues) ; 
