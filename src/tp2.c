@@ -41,7 +41,15 @@ int main(int argc, char *argv[]){
     // Affichage des langues
     char strLangues[MAXLENGTHLANGUES] ; 
     getLangues(objetJson, indexPays, strLangues); 
+    printf("Langues : "); 
     printf("%s", strLangues) ; 
+    printf("\n"); 
+    
+    char strBorders[MAXLENGTHBORDERS];
+    getBorders(objetJson, indexPays, strBorders); 
+    printf("Borders : "); 
+    printf("%s", strBorders) ; 
+     printf("\n"); 
     
     printf(" Abréviation 3 lettres : %s \n", countries_args->COUNTRY);
     printf(" Index : %d \n" , indexPays); 

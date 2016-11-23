@@ -71,6 +71,29 @@ void getLangues(json_t *objetJson, int indexPays, char* strLangues) {
 
 }
 
+void getBorders(json_t *objetJson,int indexPays, char* strBorders) {
+
+	json_t *paysCible; 
+	json_t *tableauBorders; 
+	size_t index ; 
+    json_t *value;
+    char *border ;
+    
+    paysCible = json_array_get(objetJson, indexPays) ; 
+	tableauBorders = json_object_get(paysCible,"borders");
+	
+	json_array_foreach(tableauBorders,index,value){
+		border = json_string_value(value) ; 
+		if(strlen(strBorders) == 0 ) {
+			strcat(strBorders,border);
+		} else {
+			strcat(strBorders,", "); 
+			strcat(strBorders,border);
+		}
+		
+	}
+}
+
 
 void affichage(bool SHOWCAPITAL, bool SHOWLANGUAGES, bool SHOWFLAG, bool SHOWBORDERS, char country[], char region[]){ 
 	
