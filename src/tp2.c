@@ -1,20 +1,44 @@
 #include "tp2.h"
-
-char FORMAT[4] = "text";
-char *FILENAME;
-bool SHOWLANGUAGES = false;
-bool SHOWCAPITAL = false;
-bool SHOWBORDERS = false;
-bool SHOWFLAG = false;
-char COUNTRY[3];
-char REGION[8];
+#include "country.h"
+/*
+struct Countries_args {
+    char *FILENAME;
+    char FORMAT[4];
+    bool SHOWLANGUAGES;
+    bool SHOWCAPITAL;
+    bool SHOWBORDERS;
+    bool SHOWFLAG;
+    bool SHOWCOUNTRY;
+    bool SHOWREGION ; 
+    char COUNTRY[4];
+    char REGION[8];
+};
+*/
+//int indexPays; 
+//char *capitale; 
+//char *nomPays;
 
 int main(int argc, char *argv[]){
-    getOpts(argc,argv);
+
+	//Init objet Json du dossier data 
+    json_t *objetJson ; 
+    objetJson = json_load_file("../data/countries/countries.json", 0, NULL);
+       
+    // Récupération du nombre total de pays du fichier Json : 
+    int nombreTotalPays = json_array_size(objetJson);
+    
+    //Récupération des arguments passés à l'execution : 
+    struct Countries_args *countries = getOpts(argc,argv);
+
+	// AFFICHAGE : 
+    affichage(countries, objetJson, nombreTotalPays) ; 
+     
     return 0;
 }
 
-void getOpts(int argc, char *argv[]){
+struct Countries_args *getOpts(int argc, char *argv[]){
+
+    struct Countries_args *p = malloc(sizeof(struct Countries_args));
 
     int option;
     int index;
@@ -37,52 +61,64 @@ void getOpts(int argc, char *argv[]){
         switch (option){
 
             case 'a':
-                help();
+                usage();
                 break;
             case 'b':
-                strcpy(FORMAT, optarg);
+                strcpy(p->FORMAT, optarg);
                 break;
             case 'c':
-                FILENAME =  optarg;
+                p->FILENAME =  optarg;
                 break;
             case 'd':
-                SHOWLANGUAGES = true;
+                p->SHOWLANGUAGES = true;
                 break;   
             case 'e':
-                SHOWCAPITAL = true;
+                p->SHOWCAPITAL = true;
                 break;
             case 'f':
-                SHOWBORDERS = true;
+                p->SHOWBORDERS = true;
                 break; 
             case 'g':
-                SHOWFLAG = true;
+                p->SHOWFLAG = true;
                 break;   
             case 'h':
-                strcpy(COUNTRY, optarg);
+                p->SHOWCOUNTRY = true;
+                strcpy(p->COUNTRY, optarg);
                 break;
             case 'i':
-                strcpy(REGION, optarg);
+            	p->SHOWREGION = true;
+                strcpy(p->REGION, optarg);
                 break;
         }
     }
+    return p;
 }
 
-
-void help(){
-    int c;
-    FILE *fHelp;
-    fHelp = fopen("../src/help.txt", "r");
-
-    if(fHelp){
-        while ((c = getc(fHelp)) != EOF){
-            putchar(c);
-        }
-        fclose(fHelp);
-        exit(0);
-    }else{
-        printf("I/0 Exception\n");
-        exit(1);
-    }
+void usage(){
+    fprintf(stderr,
+            "Usage: bin/tp2 [--help] [--output-format FORMAT] [--output-filename FILENAME]\n"
+            " [--show-languages] [--show-capital] [--show-borders] [--show-flag]\n"
+            " [--country COUNTRY] [--region REGION]\n"
+            "\nDisplays informations about countries.\n"
+            "\nOptional arguments:\n"
+            "    --help Show                this help message and exit.\n"  
+            "    --output-format FORMAT     Selects the ouput format (either \"text\", \"dot\" or \"png\").\n"
+            "                               The \"dot\" format is the one recognized by Graphviz.\n"
+            "                               The default format is \"text\".\n"
+            "    --output-filename FILENAME The name of the output filename. This argument is\n"
+            "                               mandatory for the \"png\" format. For the \"text\" and \"dot\"\n"
+            "                               format, the result is printed on stdout if no output\n"
+            "                               filename is given.\n"
+            "    --show-languages           The official languages of each country are displayed.\n"
+            "    --show-capital             The capital of each country is displayed.\n"
+            "    --show-borders             The borders of each country is displayed.\n"
+            "    --show-flag                The flag of each country is displayed.\n"
+            "                               (only for \"dot\" and \"png\" format).\n"
+            "    --country COUNTRY          The country code (e.g \"can\", \"usa\") to ble displayed.\n"
+            "    --region REGION            The region of the countries to displayed.\n"
+            "                               The supported regions are \"africa\", \"americas\",\n"
+            "                               \"asia\", \"europe\" and \"oceania\".\n"
+            "\n");
 }
 
 
