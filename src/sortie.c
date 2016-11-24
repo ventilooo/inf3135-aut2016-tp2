@@ -2,57 +2,84 @@
 #include "country.h"
 
 FILE * initGraphFile(char * filename);
-void closeGraphFile(FILE fGraph);
-void addPays(FILE fGraph, int pays);
+void closeGraphFile(FILE *fGraph);
+void addPays(struct json_t *objetJson, FILE *fGraph, int indexPays, bool *capital, bool *languages, bool *borders);
+void languagesOut(struct json_t *objetJson, FILE *fGraph, int indexPays, bool languages);
+void capitalOut(struct json_t *objetJson, FILE *fGraph, int indexPays, bool capital);
+void bordersOut(struct json_t *objetJson, FILE *fGraph, int indexPays, bool borders);
+void regionOut(struct json_t *objetJson, char * filename);
+void frontieresOut(struct json_t frontieres, int indexPays);
 
 FILE * initGraphFile(char * filename){
     FILE *fGraph;
-    fGraph = fopen("../bin/%s.dot", "w", filename);
+    fGraph = fopen(filename, "w");
     fprintf(fGraph, "graph {");
     return fGraph;
 }
-void closeGraphFile(FILE fGraph){
+void closeGraphFile(FILE *fGraph){
     fprintf(fGraph, "}");
     fclose(fGraph);
 }
-void addPays(FILE fGraph, int indexPays){
+void addPays(json_t *objetJson, FILE *fGraph, int indexPays, bool *capital, bool *languages, bool *borders){
 
-    fprintf(fGraph, "%s [", pays);
+    fprintf(fGraph, "%d [", indexPays);
     fprintf(fGraph, "shape = none,");
-    fprintf(fGraph, " label = <<table border="0" cellspacing="0">");
-    fprintf(fGraph, " <tr><td align=\"center\" border=\"1\" fixedsize=\"true\" width=\"200\" height=\"100\">
-            <img src=\"%s.png\" scale=\"true\"/></td></tr>", getCodePays(objetJson, indexPays));
+    fprintf(fGraph, " label = <<table border=\"0\" cellspacing=\"0\">");
+    fprintf(fGraph, " <tr><td align=\"center\" border=\"1\" fixedsize=\"true\" width=\"200\" height=\"100\"><img src=\"%s.png\" scale=\"true\"/></td></tr>", getCode(objetJson, 1, indexPays));
     fprintf(fGraph," <tr><td align=\"left\" border=\"1\"><b>Name</b>: %s</td></tr>", getNomPays(objetJson, indexPays));
-    fprintf(fGraph, "<tr><td align=\"left\" border=\"1\"><b>Code</b>: %s</td></tr>", getCodePays(objetJson, indexPays));
-    capitalOut(objetJson, indexPays, capital);
-    languagesOut(fGraph, indexPays, languages);
-    BordersOut(fGraph, indexPays, borders);
+    fprintf(fGraph, "<tr><td align=\"left\" border=\"1\"><b>Code</b>: %s</td></tr>", getCode(objetJson, 1, indexPays));
+    capitalOut(objetJson, fGraph, indexPays, capital);
+    languagesOut(objetJson, fGraph, indexPays, languages);
+    bordersOut(objetJson, fGraph, indexPays, borders);
     fprintf(fGraph, "  </table>>");
     fprintf(fGraph, " ];");
 
 }
 
-void languagesOut(json_t *objetJson, FILE fGraph, int indexPays, bool languages){
+void languagesOut(struct json_t *objetJson, FILE *fGraph, int indexPays, bool languages){
     char strLangues[MAXLENGTHLANGUES];
+
     if(languages){
-        fprintf(fGraph, "<tr><td align=\"left\" border=\"1\"><b>Language</b>: %s</td></tr>", getLanguage(objetJson, indexPays, strLangues));
+        getLangues(objetJson, indexPays, strLangues);
+        fprintf(fGraph, "<tr><td align=\"left\" border=\"1\"><b>Language</b>: %s</td></tr>", strLangues);
     }
 }
 
-void capitalOut(Fjson_t *objetJson, FILE fGraph, int indexPays, bool capital){
-    if(capital){
-        fprintf(fGraph, "<tr><td align=\"left\" border=\"1\"><b>Capital</b>: %s</td></tr>", getCapital(objetJson, indexPays));
-    }
-}
+   void capitalOut(struct json_t *objetJson, FILE *fGraph, int indexPays, bool capital){
+   if(capital){
+   fprintf(fGraph, "<tr><td align=\"left\" border=\"1\"><b>Capital</b>: %s</td></tr>", getCapitale(objetJson, indexPays));
+   }
+   }
 
-void bordersOut(FILE fGraph, int indexPays, bool borders){
-    char strBorders[MAXLENGTHBORDERS];
-    if(borders){
-        fprintf(fGraph, "<tr><td align=\"left\" border="1"><b>Borders</b>: %s</td></tr>", getBorders(objetJson, indexPays, strBorders));
-    }
-}
+   void bordersOut(struct json_t *objetJson, FILE *fGraph, int indexPays, bool borders){
+   char strBorders[MAXLENGTHBORDERS];
+   if(borders){
+   getBorders(objetJson, indexPays, strBorders);
+       fprintf(fGraph, "<tr><td align=\"left\" border=\"1\"><b>Borders</b>: %s</td></tr>", strBorders);
+   }
+   }
+/*
+   void regionOut(struct json_t *objetJson, char * filename){
 
-void frontieresOut(int indexPays){
+   int indexPays; 
+   char *capitale; 
+   char *nomPays;
+   char *codePays ; 
+   int i = 0 ;
+   int j ;
+   FILE *fGraph;
+   fGraph = initGraphFile(filename);
+
+// Tableau des fichiers de la meme region 
+struct region_info *r = getPaysMemeRegion(objetJson ,nombreTotalPays, countries->REGION) ;
+for ( j = 0 ; j <  r->nombrePays ; j++ ) {
+int indexCible = r->listeIndexPays[j] ; 
+addPays(objetJson, fGraph, indexCible, countries->SHOWCAPITAL, countries->SHOWLANGUAGES, countries->SHOWBORDERS);       
+}
+closeGraphFile(fGraph);
+}
+*/
+void frontieresOut(json_t frontieres, int indexPays){
 
 
 }
