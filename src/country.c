@@ -143,15 +143,21 @@ struct region_info *getPaysMemeRegion(json_t *objetJson,int nombreTotalPays, cha
 
 }
 
-char* getCode(json_t *objetJson, int nombreTotalPays,int indexPays) {
+char* getCode(json_t *objetJson,int indexPays) {
 
     json_t *paysCible;
     json_t *codeDuPays;
-    json_t *nomCommun;
+	int i = 0 ;
 
     paysCible = json_array_get(objetJson, indexPays);
     codeDuPays = json_object_get(paysCible,"cioc");  
     char *codePays = json_string_value(codeDuPays);
+    
+    while(codePays[i]) {
+            codePays[i] = tolower(codePays[i]);
+            i++;
+     }
+    
 
     return codePays;
 
@@ -180,6 +186,7 @@ void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTo
         printf("Name: %s \n",nomPays) ; 
         printf("Code: ") ;
         // Conversion du code à 3 lettres en Majuscules pour l'affichage : 
+        
         while(countries->COUNTRY[i]) {
             putchar(toupper(countries->COUNTRY[i]));
             i++;
@@ -215,7 +222,7 @@ void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTo
             printf("Name: %s \n",nomPays) ; 
 
             // Récupération du code à 3 lettre du pays en question : 
-            codePays = getCode(objetJson,nombreTotalPays,indexCible);
+            codePays = getCode(objetJson,indexCible);
             printf("Code: %s \n",codePays) ;
 
             if ( countries->SHOWCAPITAL) {

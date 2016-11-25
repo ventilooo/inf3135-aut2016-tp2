@@ -1,6 +1,8 @@
 #include "link.h"
 #define MAXLENGTHLANGUES 370
 #define MAXLENGTHBORDERS 60
+#ifndef COUNTRY_H
+#define COUNTRY_H
 
 struct Countries_args {
     char *FILENAME;
@@ -20,6 +22,7 @@ struct region_info {
     int nombrePays ;
 };
 
+#endif /* COUNTRY_H */
 
 int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays); 
 char* getCapitale(json_t *objetJson, int indexPays); 
@@ -28,7 +31,7 @@ void getLangues(json_t *objetJson, int indexPays, char* strLangues);
 void getBorders(json_t *objetJson,int indexPays, char* strBorders);
 struct region_info *getPaysMemeRegion(json_t *objetJson, int nombreTotalPays, char* REGION) ; 
 void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTotalPays);
-char* getCode(json_t *objetJson, int nombreTotalPays,int indexPays);
+char* getCode(json_t *objetJson,int indexPays);
 
 
 

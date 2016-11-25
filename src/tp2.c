@@ -21,28 +21,22 @@ int main(int argc, char *argv[]){
     } else if ( strcmp(countries->FORMAT,"png") == 0 ) {
     	printf("png \n") ; 
     } else if ( strcmp(countries->FORMAT,"dot") == 0 ) {
-    	printf("dot \n") ; 
-    }
-     
-    printf("valeur comparaison : %d\n" , strcasecmp(countries->FORMAT, "text")) ; 
+    	if(countries->SHOWCOUNTRY){  
 
-    if ( strcasecmp(countries->FORMAT,"dot") == 0 ) {
-        if(countries->SHOWCOUNTRY){  
-            printf("dot");
-            
             int indexPays = getIndexPays(objetJson, countries->COUNTRY, nombreTotalPays);
-            //.dot
             paysOut(objetJson, countries->FILENAME, indexPays, countries);
             affichageDot(countries->FILENAME);
 
         } else if (countries->SHOWREGION){
 
             regionOut(objetJson, nombreTotalPays, countries->FILENAME, countries);
-
+			affichageDot(countries->FILENAME);
         }
-    }else {
-        affichage(countries, objetJson, nombreTotalPays) ; 
     }
+     
+    
+
+
     return 0;
 }
 
