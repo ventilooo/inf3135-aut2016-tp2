@@ -25,13 +25,15 @@ int main(int argc, char *argv[]){
 
             int indexPays = getIndexPays(objetJson, countries->COUNTRY, nombreTotalPays);
             paysOut(objetJson, countries->FILENAME, indexPays, countries);
-            affichageDot(countries->FILENAME);
+            
 
         } else if (countries->SHOWREGION){
 
             regionOut(objetJson, nombreTotalPays, countries->FILENAME, countries);
-			affichageDot(countries->FILENAME);
+            
         }
+        
+        	enregistrerDot(countries->FILENAME);
     }
      
     

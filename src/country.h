@@ -1,6 +1,6 @@
 #include "link.h"
-#define MAXLENGTHLANGUES 370
-#define MAXLENGTHBORDERS 60
+#define MAXLENGTHLANGUES 400
+#define MAXLENGTHBORDERS 75
 #ifndef COUNTRY_H
 #define COUNTRY_H
 
