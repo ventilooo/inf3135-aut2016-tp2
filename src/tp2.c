@@ -1,22 +1,37 @@
 #include "tp2.h"
-
-char FORMAT[4] = "text";
-char *FILENAME;
-bool SHOWLANGUAGES = false;
-bool SHOWCAPITAL = false;
-bool SHOWBORDERS = false;
-bool SHOWFLAG = false;
-char COUNTRY[3];
-char REGION[8];
-
-void getPays(bool showlanguages, bool showcapital, bool showflag, char country[], char region[] );
+#include "country.h"
 
 int main(int argc, char *argv[]){
-    getOpts(argc,argv);
+
+	//Init objet Json du dossier data 
+    json_t *objetJson ; 
+    objetJson = json_load_file("../data/countries/countries.json", 0, NULL);
+       
+    // Récupération du nombre total de pays du fichier Json : 
+    int nombreTotalPays = json_array_size(objetJson);
+    
+    //Récupération des arguments passés à l'execution : 
+    struct Countries_args *countries = getOpts(argc,argv);
+
+	printf(" Valeur de FORMAT : %s \n", countries->FORMAT) ; 
+
+    if ( strcmp(countries->FORMAT,"text") == 0 ){
+		// AFFICHAGE TEXTE : 
+    	affichage(countries, objetJson, nombreTotalPays) ; 
+    } else if ( strcmp(countries->FORMAT,"png") == 0 ) {
+    	printf("png \n") ; 
+    } else if ( strcmp(countries->FORMAT,"dot") == 0 ) {
+    	printf("dot \n") ; 
+    }
+     
     return 0;
 }
 
-void getOpts(int argc, char *argv[]){
+struct Countries_args *getOpts(int argc, char *argv[]){
+
+    struct Countries_args *p = malloc(sizeof(struct Countries_args));
+		
+	strcpy(p->FORMAT, "text");
 
     int option;
     int index;
@@ -42,33 +57,45 @@ void getOpts(int argc, char *argv[]){
                 usage();
                 break;
             case 'b':
-                strcpy(FORMAT, optarg);
+                strcpy(p->FORMAT, optarg);
                 break;
             case 'c':
-                FILENAME =  optarg;
+                p->FILENAME =  optarg;
                 break;
             case 'd':
-                SHOWLANGUAGES = true;
+                p->SHOWLANGUAGES = true;
                 break;   
             case 'e':
-                SHOWCAPITAL = true;
+                p->SHOWCAPITAL = true;
                 break;
             case 'f':
-                SHOWBORDERS = true;
+                p->SHOWBORDERS = true;
                 break; 
             case 'g':
-                SHOWFLAG = true;
+                p->SHOWFLAG = true;
                 break;   
             case 'h':
-                strcpy(COUNTRY, optarg);
+                p->SHOWCOUNTRY = true;
+                strcpy(p->COUNTRY, optarg);
                 break;
             case 'i':
-                strcpy(REGION, optarg);
+            	p->SHOWREGION = true;
+                strcpy(p->REGION, optarg);
                 break;
         }
     }
+    
+    if ((strcmp(p->FORMAT,"dot") != 0 ) && 
+    	(strcmp(p->FORMAT,"png") != 0) && 
+    	(strcmp(p->FORMAT,"text") != 0)) {
+    	
+    	printf("Format invalide ! \n") ;
+    	exit(1); 
+    	
+    }
+    
+    return p;
 }
-
 
 void usage(){
     fprintf(stderr,
@@ -97,28 +124,5 @@ void usage(){
             "\n");
 }
 
-void getPays(bool showlanguages, bool showcapital, bool showflag, char country[], char region[] ){
 
-    
 
-}
-
-void initJson(json_t *objetJson){
- 
-    objetJson = json_load_file("../data/countries/countries.json", 0, NULL);
-    /*
-    json_t *countries;
-    countries = fopen("../data/countries/countries.json", "r");
-
- if(countries){
-        
-        json_object_update(objetJson, countries); 
-        
-        fclose(countries);
-        
-    }else{
-        printf("I/0 Exception\n");
-        exit(1);
-    }
-*/
-}
