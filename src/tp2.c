@@ -1,22 +1,5 @@
 #include "tp2.h"
 #include "country.h"
-/*
-struct Countries_args {
-    char *FILENAME;
-    char FORMAT[4];
-    bool SHOWLANGUAGES;
-    bool SHOWCAPITAL;
-    bool SHOWBORDERS;
-    bool SHOWFLAG;
-    bool SHOWCOUNTRY;
-    bool SHOWREGION ; 
-    char COUNTRY[4];
-    char REGION[8];
-};
-*/
-//int indexPays; 
-//char *capitale; 
-//char *nomPays;
 
 int main(int argc, char *argv[]){
 
@@ -30,9 +13,16 @@ int main(int argc, char *argv[]){
     //Récupération des arguments passés à l'execution : 
     struct Countries_args *countries = getOpts(argc,argv);
 
+	printf(" Valeur de FORMAT : %s \n", countries->FORMAT) ; 
 
-	// AFFICHAGE : 
-    affichage(countries, objetJson, nombreTotalPays) ; 
+    if ( strcmp(countries->FORMAT,"text") == 0 ){
+		// AFFICHAGE TEXTE : 
+    	affichage(countries, objetJson, nombreTotalPays) ; 
+    } else if ( strcmp(countries->FORMAT,"png") == 0 ) {
+    	printf("png \n") ; 
+    } else if ( strcmp(countries->FORMAT,"dot") == 0 ) {
+    	printf("dot \n") ; 
+    }
      
     return 0;
 }
@@ -40,6 +30,8 @@ int main(int argc, char *argv[]){
 struct Countries_args *getOpts(int argc, char *argv[]){
 
     struct Countries_args *p = malloc(sizeof(struct Countries_args));
+		
+	strcpy(p->FORMAT, "text");
 
     int option;
     int index;
@@ -92,6 +84,16 @@ struct Countries_args *getOpts(int argc, char *argv[]){
                 break;
         }
     }
+    
+    if ((strcmp(p->FORMAT,"dot") != 0 ) && 
+    	(strcmp(p->FORMAT,"png") != 0) && 
+    	(strcmp(p->FORMAT,"text") != 0)) {
+    	
+    	printf("Format invalide ! \n") ;
+    	exit(1); 
+    	
+    }
+    
     return p;
 }
 

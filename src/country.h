@@ -4,7 +4,7 @@
 
 struct Countries_args {
     char *FILENAME;
-    char FORMAT[4];
+    char FORMAT[5];
     bool SHOWLANGUAGES;
     bool SHOWCAPITAL;
     bool SHOWBORDERS;
