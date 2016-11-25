@@ -1,22 +1,22 @@
 #include "tp2.h"
 #include "country.h"
+#include "sortie.h"
 
 int main(int argc, char *argv[]){
 
-	//Init objet Json du dossier data 
+    //Init objet Json du dossier data 
     json_t *objetJson ; 
     objetJson = json_load_file("../data/countries/countries.json", 0, NULL);
-       
+
     // Récupération du nombre total de pays du fichier Json : 
     int nombreTotalPays = json_array_size(objetJson);
-    
+
     //Récupération des arguments passés à l'execution : 
     struct Countries_args *countries = getOpts(argc,argv);
 
 	printf(" Valeur de FORMAT : %s \n", countries->FORMAT) ; 
 
-    if ( strcmp(countries->FORMAT,"text") == 0 ){
-		// AFFICHAGE TEXTE : 
+    if ( strcmp(countries->FORMAT,"text") == 0 ){ 
     	affichage(countries, objetJson, nombreTotalPays) ; 
     } else if ( strcmp(countries->FORMAT,"png") == 0 ) {
     	printf("png \n") ; 
@@ -24,6 +24,25 @@ int main(int argc, char *argv[]){
     	printf("dot \n") ; 
     }
      
+    printf("valeur comparaison : %d\n" , strcasecmp(countries->FORMAT, "text")) ; 
+
+    if ( strcasecmp(countries->FORMAT,"dot") == 0 ) {
+        if(countries->SHOWCOUNTRY){  
+            printf("dot");
+            
+            int indexPays = getIndexPays(objetJson, countries->COUNTRY, nombreTotalPays);
+            //.dot
+            paysOut(objetJson, countries->FILENAME, indexPays, countries);
+            affichageDot(countries->FILENAME);
+
+        } else if (countries->SHOWREGION){
+
+            regionOut(objetJson, nombreTotalPays, countries->FILENAME, countries);
+
+        }
+    }else {
+        affichage(countries, objetJson, nombreTotalPays) ; 
+    }
     return 0;
 }
 
@@ -79,7 +98,7 @@ struct Countries_args *getOpts(int argc, char *argv[]){
                 strcpy(p->COUNTRY, optarg);
                 break;
             case 'i':
-            	p->SHOWREGION = true;
+                p->SHOWREGION = true;
                 strcpy(p->REGION, optarg);
                 break;
         }
@@ -93,6 +112,7 @@ struct Countries_args *getOpts(int argc, char *argv[]){
     	exit(1); 
     	
     }
+    return p;
 }
 
 
