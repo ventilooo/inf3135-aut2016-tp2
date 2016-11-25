@@ -17,8 +17,8 @@ Description du projet en quelques phrases.
 
 ## Plateformes supportées
 
-* Ubuntu 14.04
 * Ubuntu 16.04
+* Linux Mint 18
 * mac OS Sierra 10.12.1
 
 ## Dépendances
