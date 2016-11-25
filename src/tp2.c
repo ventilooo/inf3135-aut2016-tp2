@@ -1,19 +1,6 @@
 #include "tp2.h"
-#include "country.h"
-/*
-struct Countries_args {
-    char *FILENAME;
-    char FORMAT[4];
-    bool SHOWLANGUAGES;
-    bool SHOWCAPITAL;
-    bool SHOWBORDERS;
-    bool SHOWFLAG;
-    bool SHOWCOUNTRY;
-    bool SHOWREGION ; 
-    char COUNTRY[4];
-    char REGION[8];
-};
-*/
+#include "sortie.h"
+
 //int indexPays; 
 //char *capitale; 
 //char *nomPays;
@@ -29,10 +16,28 @@ int main(int argc, char *argv[]){
     
     //Récupération des arguments passés à l'execution : 
     struct Countries_args *countries = getOpts(argc,argv);
+    printf("Valeur recupérée dans getopts %s \n", countries->FORMAT) ; 
+    printf("valeur comparaison : %d\n" , strcasecmp(countries->FORMAT, "text")) ; 
+    
+    if ( strcasecmp(countries->FORMAT,"text") == 0) {
+	    // AFFICHAGE : 
+        affichage(countries, objetJson, nombreTotalPays) ; 
+    } else if ( strcasecmp(countries->FORMAT,"dot") == 0 ) {
 
-	// AFFICHAGE : 
-    affichage(countries, objetJson, nombreTotalPays) ; 
-     
+        if(countries->SHOWCOUNTRY){  
+            int indexPays = getIndexPays(objetJson, countries->COUNTRY, nombreTotalPays);
+            //.dot
+            paysOut(objetJson, countries->FILENAME, indexPays, countries);
+            affichageDot(countries->FILENAME);
+        
+        } else if (countries->SHOWREGION){
+            
+            regionOut(objetJson, nombreTotalPays, countries->FILENAME, countries);
+    
+        }  
+
+    }
+    
     return 0;
 }
 
