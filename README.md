@@ -1,6 +1,7 @@
 # Travail pratique 2 
 
-[![build status](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/badges/develop/build.svg)](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/commits/develop)
+|DEVELOP|MASTER|
+|[![build status](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/badges/develop/build.svg)](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/commits/develop)|[![build status](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/badges/master/build.svg)](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/commits/master)|
 
 ## Description
 
