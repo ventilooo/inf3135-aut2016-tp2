@@ -30,6 +30,7 @@ int main(int argc, char *argv[]){
     //Récupération des arguments passés à l'execution : 
     struct Countries_args *countries = getOpts(argc,argv);
 
+
 	// AFFICHAGE : 
     affichage(countries, objetJson, nombreTotalPays) ; 
      
