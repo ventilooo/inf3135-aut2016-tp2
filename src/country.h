@@ -20,6 +20,7 @@ struct region_info {
     int nombrePays ;
 };
 
+
 int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays); 
 char* getCapitale(json_t *objetJson, int indexPays); 
 char* getNomPays(json_t *objetJson, int indexPays);

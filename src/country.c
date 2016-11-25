@@ -4,7 +4,7 @@
 
 int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays) {
 
-	int indexPays = 0; 
+	int indexPays = -1; 
 	json_t *paysCible; 
 	json_t *ciocPays; 
 	char *ciocCorrespondant;
@@ -19,6 +19,11 @@ int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays) {
 		if ( strcasecmp(pays, ciocCorrespondant) == 0 ) {
 			indexPays = i;
 		}	
+	}
+	
+	if ( indexPays == -1 ) {
+		printf("Erreur, pays invalide ! \n") ; 
+		exit(1);
 	}
 	return indexPays; 
 }
@@ -105,7 +110,15 @@ struct region_info *getPaysMemeRegion(json_t *objetJson,int nombreTotalPays, cha
 	char *regionCorrespondante;
 	int i; 
 	int size = 0 ; 
-	//int* tab ;  
+
+	if ( (strcasecmp(REGION, "Asia")) != 0 && (strcasecmp(REGION, "Americas")) != 0
+	&& (strcasecmp(REGION, "Oceania")) != 0 && (strcasecmp(REGION, "Europe")) != 0
+	&& (strcasecmp(REGION, "Africa")) != 0  ) {
+	
+		printf("Erreur, région invalide ! \n") ; 
+		exit(1);
+	
+	}
 
 	for ( i = 0 ; i < nombreTotalPays ; i++ ) {
 	
