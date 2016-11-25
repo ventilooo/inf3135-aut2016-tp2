@@ -4,20 +4,12 @@ stages:
 before_script:
     - apt-get -yqq update
     - apt-get -yqq upgrade --no-install-recommends
-    - apt-get -yqq install wget bzip2 git graphviz build-essential libjansson-dev --no-install-recommends
+    - apt-get -yqq install wget bzip2 git graphviz build-essential libjansson-dev libcunit1 libcunit1-doc libcunit1-dev --no-install-recommends
 
-ubuntu-14.04:
-    image: ubuntu:14.04
-    stage: test
-    script:
-        - make
-        # - make test
-        - make clean
-
-ubuntu-16.04:
-    image: ubuntu:16.04
+job:
     stage: test
     script: 
         - make
-        # - make test
+        - make data
+        - make test
         - make clean

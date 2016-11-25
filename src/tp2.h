@@ -1,6 +1,6 @@
 #include "link.h"
 
-/**
+/*
  * Lis les arguments passes au programme et initialise les parametres 
  * qui serviront a l'execution du programme.
  *

@@ -93,9 +93,8 @@ struct Countries_args *getOpts(int argc, char *argv[]){
     	exit(1); 
     	
     }
-    
-    return p;
 }
+
 
 void usage(){
     fprintf(stderr,
@@ -123,6 +122,4 @@ void usage(){
             "                               \"asia\", \"europe\" and \"oceania\".\n"
             "\n");
 }
-
-
 
