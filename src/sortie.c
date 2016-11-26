@@ -98,43 +98,6 @@ void paysOut(struct json_t *objetJson, char * filename,int indexPays,struct Coun
 
 
 
-/*
-bool addBorderOut (int [] *frontieres1, int[] *frontieres2, char * country, char * countryList){
-    
-	int i = 0;
-	
-	while (frontieres1[i] != NULL){
-	
-		if(frontieres1[i] == countryIndex2 && frontieres2[i] == countryIndex1){
-	
-		return false;
-		}
-		i++;
-	}
-	
-	frontieres1[i] = countryIndex1;
-	frontieres2[i] = countryIndex2;
-	
-	return true;
-	
-}
-	*/
-	
-	
-	
-	/*
-void bordersOut(FILE *fGraph, int [] *frontieres1, int[] *frontieres2, json_t *objetJson){
-	int i = 0;
-	while(frontieres1[i] != NULL){
-	
-		fprintf(fGraph, "%s -- %s;\n", getCode(objetJson, frontieres1[i]), frontieres2[i]);
-	
-	}
-	
-	
-}
-
-*/
 	
 	
 	   
@@ -185,6 +148,56 @@ void graphviz(char * filename){
 	system(commandeSysteme);
 	remove("dot.dot") ;
 	free(commandeSysteme);
+	
+}
+
+void addBorderListOut(char * countryList){
+
+char s[80];
+char *pc;
+strcpy(s, countryList);
+printf("Avec strstok:\n");
+pc = strtok(s, DELIMS);
+while (pc != NULL) {
+    addBorderOut( pc);
+    pc = strtok(NULL, DELIMS);
+}
+
+
+}
+
+bool addBorderOut (int [] *frontieres1, int[] *frontieres2, char * country, char * countryList){
+    
+	int i = 0;
+	
+	while (frontieres1[i] != NULL){
+	
+		if(frontieres1[i] == countryIndex2 && frontieres2[i] == countryIndex1){
+	
+		return false;
+		}
+		i++;
+	}
+	
+	frontieres1[i] = countryIndex1;
+	frontieres2[i] = countryIndex2;
+	
+	return true;
+	
+}
+
+	
+	
+	
+
+void bordersOut(FILE *fGraph, int [] *frontieres1, int[] *frontieres2, json_t *objetJson){
+	int i = 0;
+	while(frontieres1[i] != NULL){
+	
+		fprintf(fGraph, "%s -- %s;\n", getCode(objetJson, frontieres1[i]), frontieres2[i]);
+	
+	}
+	
 	
 }
 
