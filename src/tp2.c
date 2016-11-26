@@ -14,13 +14,9 @@ int main(int argc, char *argv[]){
     //Récupération des arguments passés à l'execution : 
     struct Countries_args *countries = getOpts(argc,argv);
 
-	printf(" Valeur de FORMAT : %s \n", countries->FORMAT) ; 
-
     if ( strcmp(countries->FORMAT,"text") == 0 ){ 
     	affichage(countries, objetJson, nombreTotalPays) ; 
-    } else if ( strcmp(countries->FORMAT,"png") == 0 ) {
-    	printf("png \n") ; 
-    } else if ( strcmp(countries->FORMAT,"dot") == 0 ) {
+    } else if ( (strcmp(countries->FORMAT,"dot") == 0) || ( strcmp(countries->FORMAT,"png") == 0 ) ) {
     	if(countries->SHOWCOUNTRY){  
 
             int indexPays = getIndexPays(objetJson, countries->COUNTRY, nombreTotalPays);
@@ -33,12 +29,10 @@ int main(int argc, char *argv[]){
             
         }
         
-        	enregistrerDot(countries->FILENAME);
+        	enregistrerDot(countries->FILENAME, countries->FORMAT );
     }
      
-    
-
-
+   
     return 0;
 }
 

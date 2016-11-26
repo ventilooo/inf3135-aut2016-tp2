@@ -10,4 +10,5 @@ void regionOut(struct json_t *objetJson, int nombreTotalPays, char * filename, s
 void frontieresOut(struct json_t frontieres, int indexPays);
 void paysOut(struct json_t *objetJson, char * filename,int indexPays, struct Countries_args *countries);
 void affichageDot();
-void enregistrerDot(char * filename) ; 
+void enregistrerDot(char * filename, char* FORMAT) ; 
+void graphviz(char * filename);

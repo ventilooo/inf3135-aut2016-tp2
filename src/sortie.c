@@ -20,7 +20,7 @@ void addPays(json_t *objetJson, FILE *fGraph, int indexPays, bool capital, bool 
     fprintf(fGraph, "    %s [\n", codeCible);
     fprintf(fGraph, "        shape = none,\n");
     fprintf(fGraph, "        label = <<table border=\"0\" cellspacing=\"0\">\n");
-    fprintf(fGraph, "            <tr><td align=\"center\" border=\"1\" fixedsize=\"true\" width=\"200\" height=\"100\"><img src=\"%s.png\" scale=\"true\"/></td></tr>\n", codeCible);
+    fprintf(fGraph, "            <tr><td align=\"center\" border=\"1\" fixedsize=\"true\" width=\"200\" height=\"100\"><img src=\"../data/countries/data/%s.png\" scale=\"true\"/></td></tr>\n", codeCible);
     fprintf(fGraph, "            <tr><td align=\"left\" border=\"1\"><b>Name</b>: %s</td></tr>\n", getNomPays(objetJson, indexPays));
     
     while(codeCible[i]) {
@@ -94,9 +94,8 @@ void affichageDot(){
     int c;
     FILE *fDot;
     fDot = fopen("dot.dot", "r");
-printf("afficahge dot\n");
+
     if(fDot){
-    printf("if FDot\n");
         while ((c = getc(fDot)) != EOF){
             putchar(c);
         }
@@ -109,11 +108,37 @@ printf("afficahge dot\n");
     }
 }
 
-void enregistrerDot(char * filename){
+void enregistrerDot(char * filename, char* FORMAT){
 
 	if(filename == NULL){
 		affichageDot() ;
+	} else if(strcmp(FORMAT,"png") == 0){
+		graphviz(filename);
 	} else {
 		rename("dot.dot", filename);
 	}
 }
+
+void graphviz(char * filename){
+
+
+	char chaine1[32] ; 
+	char chaine2[9] ; 
+	strcpy(chaine1,"neato -Goverlap=false -Tpng -o ");
+	strcpy(chaine2," dot.dot");
+	
+	char *commandeSysteme = malloc(sizeof(chaine1) + sizeof(chaine2) + sizeof(filename)) ; 
+	
+	strcpy(commandeSysteme, chaine1);
+	strcat(commandeSysteme,filename) ; 
+	strcat(commandeSysteme,chaine2) ;
+
+	system(commandeSysteme);
+	remove("dot.dot") ;
+	free(commandeSysteme);
+	
+}
+
+
+
+
