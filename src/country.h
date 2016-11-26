@@ -24,16 +24,12 @@ struct region_info {
 
 #endif /* COUNTRY_H */
 
-int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays); 
-char* getCapitale(json_t *objetJson, int indexPays); 
-char* getNomPays(json_t *objetJson, int indexPays);
+int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays);
+const char* getCapitale(json_t *objetJson, int indexPays);
+const char* getNomPays(json_t *objetJson, int indexPays);
 void getLangues(json_t *objetJson, int indexPays, char* strLangues);
 void getBorders(json_t *objetJson,int indexPays, char* strBorders);
 struct region_info *getPaysMemeRegion(json_t *objetJson, int nombreTotalPays, char* REGION) ; 
 void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTotalPays);
 char* getCode(json_t *objetJson,int indexPays);
-
-
-
-
 
