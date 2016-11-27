@@ -29,11 +29,9 @@ En fonction des option choisie il genere different format de reponse:
 
 ## Dépendances
 
-Donnez la liste des bibliothèques et des logiciels qui doivent être installées
-pour que le projet soit fonctionnel. Donnez le lien vers ceux-ci pour que
-l'utilisateur puisse être redirigé vers les sites officiels des
-logiciels/bibliothèques pour effectuer l'installation le cas échéant. N'oubliez
-pas d'indiquer
+* [libjansson](https://jansson.readthedocs.io/en/2.9/)
+* [CUNIT](http://cunit.sourceforge.net/doc/index.html)
+* [bats](https://github.com/sstephenson/bats)
 
 ## Installation
 
@@ -74,7 +72,7 @@ correctement à l'aide de Markdown.
 
 ## Références
 
-Citez vos sources ici, s'il y a lieu.
+* http://www.lacim.uqam.ca/~blondin/fr/inf3135-tp2
 
 ## [Taches](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/boards)
 
