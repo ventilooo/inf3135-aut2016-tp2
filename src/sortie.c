@@ -150,7 +150,7 @@ void graphviz(char * filename){
 	free(commandeSysteme);
 	
 }
-
+/*
 void addBorderListOut(char * countryList){
 
 char s[80];
@@ -200,7 +200,10 @@ void bordersOut(FILE *fGraph, int [] *frontieres1, int[] *frontieres2, json_t *o
 	
 	
 }
+*/
+void addFrontieresDotOut(unsigned char **frontieres){
 
 
+}
 
 
