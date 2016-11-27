@@ -14,7 +14,7 @@ int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays) {
     for ( i = 0 ; i < nombreTotalPays ; i++ ) {
 
         paysCible = json_array_get(objetJson, i);
-        ciocPays = json_object_get(paysCible,"cioc");
+        ciocPays = json_object_get(paysCible,"cca3");
         ciocCorrespondant = json_string_value(ciocPays) ;
         if ( strcasecmp(pays, ciocCorrespondant) == 0 ) {
             indexPays = i;
@@ -150,7 +150,7 @@ char* getCode(json_t *objetJson,int indexPays) {
 	int i = 0 ;
 
     paysCible = json_array_get(objetJson, indexPays);
-    codeDuPays = json_object_get(paysCible,"cioc");  
+    codeDuPays = json_object_get(paysCible,"cca3");  
     char *codePays = json_string_value(codeDuPays);
     
     while(codePays[i]) {

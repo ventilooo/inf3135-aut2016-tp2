@@ -7,12 +7,24 @@ FILE * initGraphFile(){
     fprintf(fGraph, "graph { \n");
     return fGraph;
 }
-void closeGraphFile(FILE *fGraph){
 
-	
+FILE * initGraphFileBorders(){
+
+    FILE *fGraph;
+    fGraph = fopen("bordersDot", "w+");
+    return fGraph;
+}
+
+
+void closeGraphFile(FILE *fGraph){
+        
     fprintf(fGraph, "}\n");
     fclose(fGraph);
 }
+
+
+
+
 void addPays(json_t *objetJson, FILE *fGraph, int indexPays, bool capital, bool languages, bool borders){
     
     char *codeCible = getCode(objetJson, indexPays) ; 
@@ -35,8 +47,16 @@ void addPays(json_t *objetJson, FILE *fGraph, int indexPays, bool capital, bool 
     bordersOut(objetJson, fGraph, indexPays, borders);
     fprintf(fGraph, "        </table>>\n");
     fprintf(fGraph, "    ];\n");
-
+    
+    
+    
+    
+    
+    
 }
+
+
+
 
 void languagesOut(struct json_t *objetJson, FILE *fGraph, int indexPays, bool languages){
 
@@ -64,24 +84,51 @@ void bordersOut(struct json_t *objetJson, FILE *fGraph, int indexPays, bool bord
 void regionOut(struct json_t *objetJson, int nombreTotalPays, char * filename, struct Countries_args *countries){
 
     int j ;
+    
     FILE *fGraph;
     fGraph = initGraphFile();
-    char * frontieres = malloc(1);
-	//int[300] frontieres1;
-	//int[300] frontieres2;
+   
+   	FILE *fGraphBorders ; 
+   	fGraphBorders = initGraphFileBorders() ; 
+
 
     // Tableau des fichiers de la meme region 
     struct region_info *r = getPaysMemeRegion(objetJson ,nombreTotalPays, countries->REGION) ;
     for ( j = 0 ; j < r->nombrePays ; j++ ) {
-        int indexCible = r->listeIndexPays[j] ; 
+        int indexCible = r->listeIndexPays[j] ;
+        char *codePaysCible = getCode(objetJson, indexCible) ;  
         addPays(objetJson, fGraph, indexCible, countries->SHOWCAPITAL, countries->SHOWLANGUAGES, countries->SHOWBORDERS);
-       // addBorderOut (&frontieres1, &frontieres2, int countryIndex1, int countryIndex2) ;
-addFrontieresDotOut(&frontieres, objetJson,indexCible)
+        
+        char strBorders[MAXLENGTHBORDERS] = "" ;
+    	getBorders(objetJson, indexCible, strBorders);
+    	char *pc;
+   		pc = strtok(strBorders, ",");
+   		
+   		while (pc != NULL) {
+   			
+   			int i = 0 ; 
+    		int k = 0 ;
+    		
+   			while(pc[i]) {
+           		pc[i] = tolower(pc[i]);
+            	i++;
+        	}
+         	while(codePaysCible[k]) {
+            	codePaysCible[k] = tolower(codePaysCible[k]);
+            	k++;
+        	}
+    
+    		fprintf(fGraphBorders,"%s -- %s;\n", codePaysCible, pc) ; 
+    		pc = strtok(NULL, ",");
+    	}
+    	  
+    	
+    	
     }
-    
-    
-   // bordersOut(fGraph, &frontieres1, &frontieres2, objetJson) ; 
-   closeGraphFile(fGraph);
+        
+    fclose(fGraphBorders);
+    mergeBordersTofGraph(fGraph, fGraphBorders);
+    closeGraphFile(fGraph);
 }
 
 
@@ -99,7 +146,32 @@ void paysOut(struct json_t *objetJson, char * filename,int indexPays,struct Coun
 
 
 
+void mergeBordersTofGraph(FILE *fGraph, FILE *borders){
 	
+	FILE *bordersReader;
+	printf("mergetoFile\n");
+	int c;
+    fclose(borders);
+    bordersReader = fopen("bordersDot", "r");
+    
+    
+    
+
+    if(fGraph && bordersReader){
+        while ((c = getc(bordersReader)) != EOF){
+           fprintf(fGraph, "%c", c);
+        }
+        printf("mergetoFileClose\n");
+        fclose(bordersReader);
+       
+        remove("bordersDot") ;
+        
+    }else{
+        printf("I/0 Exception\n");
+        exit(1);
+    }
+    
+}	
 	
 	   
 void affichageDot(){
@@ -151,66 +223,3 @@ void graphviz(char * filename){
 	free(commandeSysteme);
 	
 }
-/*
-void addBorderListOut(char * countryList){
-
-char s[80];
-char *pc;
-strcpy(s, countryList);
-printf("Avec strstok:\n");
-pc = strtok(s, DELIMS);
-while (pc != NULL) {
-    addBorderOut( pc);
-    pc = strtok(NULL, DELIMS);
-}
-
-
-}
-
-bool addBorderOut (int [] *frontieres1, int[] *frontieres2, char * country, char * countryList){
-    
-	int i = 0;
-	
-	while (frontieres1[i] != NULL){
-	
-		if(frontieres1[i] == countryIndex2 && frontieres2[i] == countryIndex1){
-	
-		return false;
-		}
-		i++;
-	}
-	
-	frontieres1[i] = countryIndex1;
-	frontieres2[i] = countryIndex2;
-	
-	return true;
-	
-}
-
-	
-	
-	
-
-void bordersOut(FILE *fGraph, int [] *frontieres1, int[] *frontieres2, json_t *objetJson){
-	int i = 0;
-	while(frontieres1[i] != NULL){
-	
-		fprintf(fGraph, "%s -- %s;\n", getCode(objetJson, frontieres1[i]), frontieres2[i]);
-	
-	}
-	
-	
-}
-*/
-void addFrontieresDotOut(unsigned char **frontieres, json_t *objetJson,int indexPays){
-
-   char * ajout;
-  getBorders(objetJson,indexPays, ajout);
-
-   realloc(frontieres, sizeof(frontieres) + sizeof(ajout));
-    frontieres = strcat(frontieres, ajout);
-
-
-}
-
-

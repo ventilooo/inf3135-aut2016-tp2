@@ -12,4 +12,4 @@ void paysOut(struct json_t *objetJson, char * filename,int indexPays, struct Cou
 void affichageDot();
 void enregistrerDot(char * filename, char* FORMAT) ; 
 void graphviz(char * filename);
-//bool addBorderOut(int [] frontieres1, int[]frontieres2, int countryIndex1, int countryIndex2);
+void mergeBordersTofGraph(FILE *fGraph, FILE *borders);
