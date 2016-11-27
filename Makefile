@@ -22,7 +22,7 @@ LFLAGS = `pkg-config --libs jansson`
 OBJECTS := $(patsubst %.c,%.o,$(wildcard src/*.c))
 TEST_OBJECTS := $(patsubst %.c,%.o,$(wildcard test/*.c))
 EXEC = bin/tp2
-EXEC_TEST = test/test
+EXEC_TEST = test/suite
 
 $(EXEC): $(OBJECTS)
 	$(CC) $(LFLAGS) -o $(EXEC) $(OBJECTS) -ljansson
