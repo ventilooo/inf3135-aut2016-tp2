@@ -66,7 +66,7 @@ void regionOut(struct json_t *objetJson, int nombreTotalPays, char * filename, s
     int j ;
     FILE *fGraph;
     fGraph = initGraphFile();
-
+    char * frontieres = malloc(1);
 	//int[300] frontieres1;
 	//int[300] frontieres2;
 
@@ -75,7 +75,8 @@ void regionOut(struct json_t *objetJson, int nombreTotalPays, char * filename, s
     for ( j = 0 ; j < r->nombrePays ; j++ ) {
         int indexCible = r->listeIndexPays[j] ; 
         addPays(objetJson, fGraph, indexCible, countries->SHOWCAPITAL, countries->SHOWLANGUAGES, countries->SHOWBORDERS);
-       // addBorderOut (&frontieres1, &frontieres2, int countryIndex1, int countryIndex2) ;   
+       // addBorderOut (&frontieres1, &frontieres2, int countryIndex1, int countryIndex2) ;
+addFrontieresDotOut(&frontieres, objetJson,indexCible)
     }
     
     
@@ -201,7 +202,13 @@ void bordersOut(FILE *fGraph, int [] *frontieres1, int[] *frontieres2, json_t *o
 	
 }
 */
-void addFrontieresDotOut(unsigned char **frontieres){
+void addFrontieresDotOut(unsigned char **frontieres, json_t *objetJson,int indexPays){
+
+   char * ajout;
+  getBorders(objetJson,indexPays, ajout);
+
+   realloc(frontieres, sizeof(frontieres) + sizeof(ajout));
+    frontieres = strcat(frontieres, ajout);
 
 
 }
