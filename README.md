@@ -49,28 +49,28 @@ correctement à l'aide de Markdown.
 
 ## Contenu du projet
 
-* bin/ -> executable(s).
-* data/ -> base de donnes.
-    * countries/
-        * CONTRIBUTING.md
-        * LICENSE
-        * ...
-        * package.json
-        * src/
-* src/ -> fichier source C.
-    * tp2.c -> logique generale du projet.
-    * tp2.h -> header du fichier tp2.c .
-    * country.c -> logique d'extraction des donner json pour les manipuler.
-    * country.h -> header du fichier country.c .
-    * sortie.c -> logique de generation des foramat `.dot` et `.png`. .
-    * sortie.h -> header du fichier sortie.c .
-* test/ -> fichier source `CUNIT` et `.bat`.
-* Makefile -> makefile du projet.
-* README.md -> presentation et documenation du projet.
-* LICENCE -> licence du projet
-* .gitignore -> liste des fichier non versionner
-* .gitsubmodule -> information sur les submodule
-* .gitab-ci.yml -> configuration Gitlab-ci pour l'integration continue.
+* `bin/` -> executable(s)
+* `data/` -> base de donnes
+    * `countries/`
+        * `CONTRIBUTING.md`
+        * `LICENSE`
+        * `...`
+        * `package.json`
+        * `src/`
+* `src/` -> fichier source C
+    * `tp2.c` -> logique generale du projet
+    * `tp2.h` -> header du fichier `tp2.c`
+    * `country.c` -> logique d'extraction des donner json pour les manipuler
+    * `country.h` -> header du fichier `country.c` 
+    * `sortie.c` -> logique de generation des foramat `.dot` et `.png`
+    * `sortie.h` -> header du fichier `sortie.c` 
+* `test/` -> fichier source `CUNIT` et `.bat`
+* `Makefile` -> makefile du projet
+* `README.md` -> presentation et documetation du projet
+* `LICENCE` -> licence du projet
+* `.gitignore` -> liste des fichier non versionner
+* `.gitsubmodule` -> information sur les submodule
+* `.gitab-ci.yml` -> configuration Gitlab-ci pour l'integration continue
 
 ## Références
 
