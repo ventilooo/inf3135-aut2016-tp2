@@ -2,4 +2,6 @@
 #include <string.h>
 #include "CUnit/Basic.h"
 
-int main(){}
+int main() {
+    return 0;
+}
