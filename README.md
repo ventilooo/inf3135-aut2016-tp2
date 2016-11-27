@@ -1,10 +1,17 @@
 # Travail pratique 2 
 
-[![build status](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/badges/master/build.svg)](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/commits/master)
+|DEVELOP|MASTER|
+|:-------:|:-------:|
+|[![build status](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/badges/develop/build.svg)](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/commits/develop)|[![build status](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/badges/master/build.svg)](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/commits/master)|
 
 ## Description
 
-Description du projet en quelques phrases.
+Il s'agit d'un programme qui lis une base donne en Json qui contient des information sur des pays.
+
+En fonction des option choisie il genere different format de reponse:
+* text
+* .png
+* .dot
 
 (Construction et maintenance de logiciels, INF3135, UQAM, Automne 2016)
 
@@ -16,9 +23,9 @@ Description du projet en quelques phrases.
 
 ## Plateformes supportées
 
-Indiquez ici la liste des plateformes sur lesquelles le projet a été testé
-(MacOS, Ubuntu, Mint, Serveur Matl etc.). N'oubliez pas de préciser la version
-de la plateforme (MacOS 10.10.5 Yosemite, Ubuntu 14.04 LTS, etc.).
+* Ubuntu 16.04
+* Linux Mint 18
+* mac OS Sierra 10.12.1
 
 ## Dépendances
 
@@ -30,9 +37,8 @@ pas d'indiquer
 
 ## Installation
 
-Expliquez comment rendre le projet fonctionnel (commandes make et make data ?)
-et comment lancer la suite de tests automatiques (make test ?), comment
-nettoyer le dossier (make clean ?).
+1. `make data`
+2. `make`
 
 ## Fonctionnement
 
@@ -43,14 +49,35 @@ correctement à l'aide de Markdown.
 
 ## Contenu du projet
 
-Décrivez brièvement chacun des fichiers contenus dans le projet. Utilisez
-une liste à puce et décrivez-les de façon significative (une phrase par
-fichier)
+* bin/ -> executable(s).
+* data/ -> base de donnes.
+    * countries/
+        * CONTRIBUTING.md
+        * LICENSE
+        * ...
+        * package.json
+        * src/
+* src/ -> fichier source C.
+    * tp2.c -> logique generale du projet.
+    * tp2.h -> header du fichier tp2.c .
+    * country.c -> logique d'extraction des donner json pour les manipuler.
+    * country.h -> header du fichier country.c .
+    * sortie.c -> logique de generation des foramat `.dot` et `.png`. .
+    * sortie.h -> header du fichier sortie.c .
+* test/ -> fichier source `CUNIT` et `.bat`.
+* Makefile -> makefile du projet.
+* README.md -> presentation et documenation du projet.
+* LICENCE -> licence du projet
+* .gitignore -> liste des fichier non versionner
+* .gitsubmodule -> information sur les submodule
+* .gitab-ci.yml -> configuration Gitlab-ci pour l'integration continue.
 
 ## Références
 
 Citez vos sources ici, s'il y a lieu.
 
+## [Taches](https://gitlab.com/ventilooo/inf3135-aut2016-tp2/boards)
+
 ## Statut
 
-Indiquez le statut actuel du projet et les bogues connus s'il y a lieu.
+Work In Progress
