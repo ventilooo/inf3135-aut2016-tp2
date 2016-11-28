@@ -33,69 +33,69 @@ void closeGraphFile(FILE *fGraph);
 /*
  * Ajoute les informations d'un pays au format "dot" dans un fichier ".dot".
  *
- * @param *objetJson (Objet associer au contenue de counries.json)
+ * @param *objetJson (Objet associé au contenu de countries.json)
  * @param *fGraph (Fichier "dot.dot")
- * @param indexPays (Index d'un pays)
- * @param capital (Capital d'un pays)
- * @param languages (Langues officiel d'un pays)
- * @param borders (pays frontalier du pays selectionner)
+ * @param indexPays (Index du pays)
+ * @param capital (Capitale du pays)
+ * @param languages (Langues officielles du pays)
+ * @param borders (pays frontaliers du pays selectionné)
 */
 void addPays(struct json_t *objetJson, FILE *fGraph, int indexPays, bool capital, bool languages, bool borders);
 
 /*
  * Ajoute les langues officielles d'un pays dans un fichier au format dot.
  *
- * @param *objetJson (Objet associer au contenue de counries.json)
+ * @param *objetJson (Objet associé au contenu de countries.json)
  * @param *fGraph (Fichier "dot.dot")
  * @param indexPays (Index d'un pays)
- * @param languages (Langues officiel d'un pays)
+ * @param languages (Langues officielles d'un pays)
 */
 void languagesOut(struct json_t *objetJson, FILE *fGraph, int indexPays, bool languages);
 
 /*
- * Ajoute la capital d'un pays dans un fichier au format dot.
+ * Ajoute la capitale d'un pays dans un fichier au format dot.
  *
- * @param *objetJson (Objet associer au contenue de counries.json)
+ * @param *objetJson (Objet associé au contenu de countries.json)
  * @param *fGraph (Fichier "dot.dot")
- * @param indexPays (Index d'un pays)
- * @param capital (Capital d'un pays)
+ * @param indexPays (Index du pays)
+ * @param capital (Capital du pays)
 */
 void capitalOut(struct json_t *objetJson, FILE *fGraph, int indexPays, bool capital);
 
 /*
- * Ajoute les pays limitrophe d'un pays en options dans un fichier au format dot.
+ * Ajoute les pays limitrophe d'un pays en option dans un fichier au format dot.
  *
- * @param *objetJson (Objet associer au contenue de counries.json)
+ * @param *objetJson (Objet associé au contenu de countries.json)
  * @param *fGraph (Fichier "dot.dot")
- * @param indexPays (Index d'un pays)
- * @param borders (pays frontalier du pays selectionner)
+ * @param indexPays (Index du pays)
+ * @param borders (pays frontalier du pays sélectionné)
 */
 void bordersOut(struct json_t *objetJson, FILE *fGraph, int indexPays, bool borders);
 
 /*
- * Ajoute les Pays associer a une regions dans un fichier au format dot.
+ * Ajoute les pays associés à une region dans un fichier au format dot.
  *
- * @param *objetJson (Objet associer au contenue de counries.json)
+ * @param *objetJson (Objet associé au contenu de counries.json)
  * @param nombreTotalPays (Nombre total de pays dans countries.json)
- * @param *filename (nom d'un fichier)
- * @param *Countries_args (liste des options)
+ * @param *filename (Nom du fichier)
+ * @param *Countries_args (Liste des options)
 */
 void regionOut(struct json_t *objetJson, int nombreTotalPays, char * filename, struct Countries_args *countries);
 
 /*
- * Ajoute les frontieres d'un pays dans un fichier au format dot.
+ * Ajoute les frontières des pays dans un fichier au format dot.
  *
- * @param frontieres (Frontiere d'un pays)
- * @param indexPays (Index d'un pays)
+ * @param frontieres (Frontières d'un pays)
+ * @param indexPays (Index du pays)
 */
 void frontieresOut(struct json_t frontieres, int indexPays);
 
 /*
  * Ajoute un pays dans un fichier au format dot.
  *
- * @param *objetJson (Objet associer au contenue de counries.json)
+ * @param *objetJson (Objet associé au contenu de countries.json)
  * @param *filename (Nom du fichier)
- * @param indexPays (Index d'un pays)
+ * @param indexPays (L'index du pays)
  * @param *Countries_args (Liste des options)
 */
 void paysOut(struct json_t *objetJson, char * filename,int indexPays, struct Countries_args *countries);
@@ -106,7 +106,7 @@ void paysOut(struct json_t *objetJson, char * filename,int indexPays, struct Cou
 void affichageDot();
 
 /*
- * Enregistre le fichier au format en parametre.
+ * Vérifie le format et le filename, et dirige vers le traitement approprié . 
  *
  * @param *filename (Nom du fichier)
  * @param *FORMAT (Format du fichier)
@@ -114,10 +114,19 @@ void affichageDot();
 void enregistrerDot(char * filename, char* FORMAT) ; 
 
 /*
- * Appelle de graphviz pour creer le les images png.
+ * Appel de graphviz pour créer les images png.
  *
  * @param *filename (Nom du fichier)
 */
 void graphviz(char * filename);
 
+
+
+/*
+ * Ajoute les relations entre les pays au fichier principal.
+ *
+ * @param *fGraph (Fichier principal à afficher)
+ *
+ * @param *borders (Fichier contenant les relations entre les pays)
+*/
 void mergeBordersTofGraph(FILE *fGraph, FILE *borders);
