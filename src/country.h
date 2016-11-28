@@ -23,7 +23,7 @@
 #define COUNTRY_H
 
 /*
- * Structure associer aux arguments lie au pays.
+ * Structure associée aux arguments liés au pays.
 */ 
 struct Countries_args {
     char *FILENAME;
@@ -39,7 +39,7 @@ struct Countries_args {
 };
 
 /*
- *  Structure asocier au region
+ *  Structure asociée à la région
 */ 
 struct region_info {
     int *listeIndexPays;
@@ -49,41 +49,41 @@ struct region_info {
 #endif /* COUNTRY_H */
 
 /*
- * Retourne l'index du pays choisie. 
+ * Retourne l'index du pays choisi. 
  *
- * @param *objetJson (contenue de la base de donne json)
- * @param *pays (nom du pays passer)
- * @param nombreTotalPays (nombre total de pays contenue dans country.json) 
+ * @param *objetJson (contenu de la base de données json)
+ * @param *pays (nom du pays passé)
+ * @param nombreTotalPays (nombre total de pays contenu dans country.json) 
 */ 
 int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays);
 
 /*
- * Retourne la chaine de caractere correspondant a la capital d'un pays.
+ * Retourne la chaine de caractère correspondant à la capitale d'un pays.
  * 
- * @param *objetJson (contenue de la base de donne json)
- * @param indexPays (index d'un pays)
+ * @param *objetJson (contenu de la base de données json)
+ * @param indexPays (index du pays)
 */ 
-const char* getCapitale(json_t *objetJson, int indexPays);
+char* getCapitale(json_t *objetJson, int indexPays);
 
 /*
- * Reddtourne la chaine de caractere correspondant au nom officiel d'un d'un pays.
+ * Retourne la chaine de caractère correspondant au nom officiel d'un pays.
  * 
- * @param *objetJson (contenue de la base de donne json)
- * @param indexPays (index d'un pays)
+ * @param *objetJson (contenu de la base de données json)
+ * @param indexPays (index du pays)
 */ 
-const char* getNomPays(json_t *objetJson, int indexPays);
+char* getNomPays(json_t *objetJson, int indexPays);
 
 /*
- * Reddtourne la chaine de caractere correspondant au nom officiel d'un d'un pays.
+ * Retourne les langues correspondant à un pays.
  * 
- * @param *objetJson (contenue de la base de donne json)
- * @param indexPays (index d'un pays)
- * @param *strLangues (liste des langues officiel d'un pays)
+ * @param *objetJson (contenu de la base de données json)
+ * @param indexPays (index du pays)
+ * @param *strLangues (liste des langues officielles du pays)
 */ 
 void getLangues(json_t *objetJson, int indexPays, char* strLangues);
 
 /*
- * Reddtourne la chaine de caractere correspondant au nom officiel d'un d'un pays.
+ * Retourne la chaine de caractère correspondant aux pays frontaliers d'un pays.
  * 
  * @param *objetJson (contenue de la base de donne json)
  * @param indexPays (index d'un pays)
@@ -92,28 +92,28 @@ void getLangues(json_t *objetJson, int indexPays, char* strLangues);
 void getBorders(json_t *objetJson,int indexPays, char* strBorders);
 
 /*
- * Retourne la chaine de caractere correspondant au nom officiel d'un d'un pays.
+ * Récupère les pays de la région passée en paramètre
  * 
- * @param *objetJson (contenue de la base de donne json)
- * @param nombreTotalPays (nombre total de pays contenue dans country.json) 
+ * @param *objetJson (contenu de la base de donnée json)
+ * @param nombreTotalPays (nombre total de pays contenu dans country.json) 
  * @param *REGION (region [exemple: amerique, asie, europe ...])
 */ 
 struct region_info *getPaysMemeRegion(json_t *objetJson, int nombreTotalPays, char* REGION) ; 
 
 /*
- * Affiche les information d'un d'un pays en fonction des options.
+ * Affiche les information d'un pays en fonction des options.
  * 
- * @param *countrie_args (structure contenant les options passer en arguments)
- * @param *objetJson (contenue de la base de donne json)
- * @param nombreTotalPays (nombre total de pays contenue dans country.json) 
+ * @param *countrie_args (structure contenant les options passées en argument)
+ * @param *objetJson (contenu de la base de donnée json)
+ * @param nombreTotalPays (nombre total de pays contenus dans country.json) 
 */ 
 void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTotalPays);
 
 /*
- * Retourne la chaine de caractere correspondant au code d'un d'un pays.
+ * Retourne la chaine de caractères correspondant à l'index d'un pays . 
  * 
- * @param *objetJson (contenue de la base de donne json)
- * @param indexPays (index d'un pays)
+ * @param *objetJson (contenu de la base de données json)
+ * @param indexPays (index du pays)
 */ 
 char* getCode(json_t *objetJson,int indexPays);
 

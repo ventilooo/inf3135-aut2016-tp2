@@ -6,9 +6,10 @@
 
 ## Description
 
-Il s'agit d'un programme qui lis une base donne en Json qui contient des information sur des pays.
+Il s'agit d'un programme qui lit une base de données en Json qui contient des information sur des pays.
+L'utilisateur peut choisir quelles informations afficher, à savoir la capitale, les langues parlées, les frontières du pays ...
 
-En fonction des optionx choisie il genere different format de reponse:
+En fonction des option choisies il génère différents formats de sortie:
 * text
 * .png
 * .dot
@@ -40,35 +41,28 @@ En fonction des optionx choisie il genere different format de reponse:
 
 ## Fonctionnement
 
-### 1.
-* **input:** : `bin/tp2 --country can`
-* **output** : `Name: Canada
-            Code: CAN`
+Exemples d'utilisation : ( Étant donné que les régions affichent plusieurs résultats, nous nous contentons de donner des exemples pour les pays ) : 
 
-### 2.
-* **input:** : `bin/tp2 --region oceania --show-languages --show-capital --show-borders
-Name: American Samoa`
-* **output** : `Code: ASM
-Capital: Pago Pago
-Languages: English, Samoan
-Borders:
-Name: Australia
-Code: AUS
-Capital: Canberra
-Languages: English
-Borders:
-...
-Name: Samoa
-Code: WSM
-Capital: Apia
-Languages: English, Samoan
-Borders:
-`
+### 1. Le cas d'utilisation le plus simple permet d'afficher à la console le nom d'un pays dont on donne le code :
+* **input:** `./tp2 --country can`
+* **output:** `Name: Canada 
+	Code: CAN`
+		 
+### 2. On peut afficher certaines options, comme la capitale, les langues parlées, les frontières :
 
-### 3.
-* **input:** : `bin/tp2 --country can --show-languages --show-capital --show-borders \
+* **input:** `./tp2 --country can --show-borders --show-capital --show-languages`
+* **output:**	`Name: Canada 
+	Code: CAN
+	Capital: Ottawa 
+	Languages: English, French 
+	Borders: USA`
+	
+  
+		 
+### 3. On peut afficher l'information relative à un fichier ou une région au format dot :
+* **input:** `bin/tp2 --country can --show-languages --show-capital --show-borders \
 > --show-flag --output-format dot`
-* **output** : `graph {
+* **output:** `graph {
     can [
         shape = none,
         label = <<table border="0" cellspacing="0">
@@ -84,28 +78,28 @@ Borders:
 
 ## Contenu du projet
 
-* `bin/` -> executable(s)
-* `data/` -> base de donnes
+* `bin/` -> Executable(s)
+* `data/` -> Base de données
     * `countries/`
         * `CONTRIBUTING.md`
         * `LICENSE`
         * `...`
         * `package.json`
         * `src/`
-* `src/` -> fichier source C
-    * `tp2.c` -> logique generale du projet
-    * `tp2.h` -> header du fichier `tp2.c`
-    * `country.c` -> logique d'extraction des donner json pour les manipuler
-    * `country.h` -> header du fichier `country.c` 
-    * `sortie.c` -> logique de generation des foramat `.dot` et `.png`
-    * `sortie.h` -> header du fichier `sortie.c` 
-* `test/` -> fichier source `CUNIT` et `.bat`
-* `Makefile` -> makefile du projet
-* `README.md` -> presentation et documetation du projet
-* `LICENCE` -> licence du projet
-* `.gitignore` -> liste des fichier non versionner
-* `.gitsubmodule` -> information sur les submodule
-* `.gitab-ci.yml` -> configuration Gitlab-ci pour l'integration continue
+* `src/` -> Fichier source C
+    * `tp2.c` -> Logique générale du projet ( Avec le main ) 
+    * `tp2.h` -> Header du fichier `tp2.c`
+    * `country.c` -> Logique d'extraction des données Json pour les manipuler
+    * `country.h` -> Header du fichier `country.c` 
+    * `sortie.c` -> Logique de génération des formats `.dot` et `.png`
+    * `sortie.h` -> Header du fichier `sortie.c` 
+* `test/` -> Fichier source `CUNIT` et `.bat`
+* `Makefile` -> Makefile du projet
+* `README.md` -> Présentation et documentation du projet
+* `LICENCE` -> License du projet
+* `.gitignore` -> Liste des fichiers non versionnés
+* `.gitsubmodule` -> Informations sur les submodules
+* `.gitab-ci.yml` -> Configuration Gitlab-ci pour l'intégration continue
 
 ## Références
 
@@ -115,4 +109,4 @@ Borders:
 
 ## Statut
 
-Work In Progress
+Complété , sauf que les frontières entre les pays sont affichées en double . 

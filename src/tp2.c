@@ -153,4 +153,3 @@ void usage(){
             "                               \"asia\", \"europe\" and \"oceania\".\n"
             "\n");
 }
-
