@@ -41,6 +41,7 @@ data:
 	git submodule update
 
 test: $(TEST_OBJECTS)
+	make
 	$(CC) $(CFLAGS) -o $(EXEC_TEST) ./src/country.o ./src/sortie.o $(TEST_OBJECTS) -ljansson -lcunit
 	bats test/output.bats
 	./test/suite
