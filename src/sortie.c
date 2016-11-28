@@ -25,11 +25,24 @@ FILE * initGraphFile(){
     fprintf(fGraph, "graph { \n");
     return fGraph;
 }
-void closeGraphFile(FILE *fGraph){
 
+FILE * initGraphFileBorders(){
+
+    FILE *fGraph;
+    fGraph = fopen("bordersDot", "w+");
+    return fGraph;
+}
+
+
+void closeGraphFile(FILE *fGraph){
+        
     fprintf(fGraph, "}\n");
     fclose(fGraph);
 }
+
+
+
+
 void addPays(json_t *objetJson, FILE *fGraph, int indexPays, bool capital, bool languages, bool borders){
     
     char *codeCible = getCode(objetJson, indexPays) ; 
@@ -52,8 +65,16 @@ void addPays(json_t *objetJson, FILE *fGraph, int indexPays, bool capital, bool 
     bordersOut(objetJson, fGraph, indexPays, borders);
     fprintf(fGraph, "        </table>>\n");
     fprintf(fGraph, "    ];\n");
-
+    
+    
+    
+    
+    
+    
 }
+
+
+
 
 void languagesOut(struct json_t *objetJson, FILE *fGraph, int indexPays, bool languages){
 
@@ -81,17 +102,54 @@ void bordersOut(struct json_t *objetJson, FILE *fGraph, int indexPays, bool bord
 void regionOut(struct json_t *objetJson, int nombreTotalPays, char * filename, struct Countries_args *countries){
 
     int j ;
+    
     FILE *fGraph;
     fGraph = initGraphFile();
+   
+   	FILE *fGraphBorders ; 
+   	fGraphBorders = initGraphFileBorders() ; 
+
 
     // Tableau des fichiers de la meme region 
     struct region_info *r = getPaysMemeRegion(objetJson ,nombreTotalPays, countries->REGION) ;
     for ( j = 0 ; j < r->nombrePays ; j++ ) {
-        int indexCible = r->listeIndexPays[j] ; 
-        addPays(objetJson, fGraph, indexCible, countries->SHOWCAPITAL, countries->SHOWLANGUAGES, countries->SHOWBORDERS);       
+        int indexCible = r->listeIndexPays[j] ;
+        char *codePaysCible = getCode(objetJson, indexCible) ;  
+        addPays(objetJson, fGraph, indexCible, countries->SHOWCAPITAL, countries->SHOWLANGUAGES, countries->SHOWBORDERS);
+        
+        char strBorders[MAXLENGTHBORDERS] = "" ;
+    	getBorders(objetJson, indexCible, strBorders);
+    	char *pc;
+   		pc = strtok(strBorders, ",");
+   		
+   		while (pc != NULL) {
+   			
+   			int i = 0 ; 
+    		int k = 0 ;
+    		
+   			while(pc[i]) {
+           		pc[i] = tolower(pc[i]);
+            	i++;
+        	}
+         	while(codePaysCible[k]) {
+            	codePaysCible[k] = tolower(codePaysCible[k]);
+            	k++;
+        	}
+    
+    		fprintf(fGraphBorders,"%s -- %s;\n", codePaysCible, pc) ; 
+    		pc = strtok(NULL, ",");
+    	}
+    	  
+    	
+    	
     }
-   closeGraphFile(fGraph);
+        
+    fclose(fGraphBorders);
+    mergeBordersTofGraph(fGraph, fGraphBorders);
+    closeGraphFile(fGraph);
 }
+
+
 
 void paysOut(struct json_t *objetJson, char * filename,int indexPays,struct Countries_args *countries){
     FILE *fGraph;
@@ -102,16 +160,42 @@ void paysOut(struct json_t *objetJson, char * filename,int indexPays,struct Coun
 
     closeGraphFile(fGraph);
 }
-/*
-   void putBorder (frontieres, countryCode1, countryCode2){
-   if(json_object_get(frontieres, 
 
-   }*/
+
+
+
+void mergeBordersTofGraph(FILE *fGraph, FILE *borders){
+	
+	FILE *bordersReader;
+	int c;
+    fclose(borders);
+    bordersReader = fopen("bordersDot", "r");
+    
+    
+    
+
+    if(fGraph && bordersReader){
+        while ((c = getc(bordersReader)) != EOF){
+           fprintf(fGraph, "%c", c);
+        }
+        fclose(bordersReader);
+       
+        remove("bordersDot") ;
+        
+    }else{
+        printf("I/0 Exception\n");
+        exit(1);
+    }
+    
+}	
+	
+	   
 void affichageDot(){
 
     int c;
     FILE *fDot;
     fDot = fopen("dot.dot", "r");
+
 
     if(fDot){
         while ((c = getc(fDot)) != EOF){
@@ -156,7 +240,3 @@ void graphviz(char * filename){
 	free(commandeSysteme);
 	
 }
-
-
-
-

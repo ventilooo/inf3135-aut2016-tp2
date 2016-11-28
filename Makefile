@@ -22,7 +22,7 @@ LFLAGS = `pkg-config --libs jansson`
 OBJECTS := $(patsubst %.c,%.o,$(wildcard src/*.c))
 TEST_OBJECTS := $(patsubst %.c,%.o,$(wildcard test/*.c))
 EXEC = bin/tp2
-EXEC_TEST = bin/test
+EXEC_TEST = test/suite
 
 $(EXEC): $(OBJECTS)
 	$(CC) $(LFLAGS) -o $(EXEC) $(OBJECTS) -ljansson
@@ -34,10 +34,14 @@ $(EXEC): $(OBJECTS)
 
 clean:
 	rm -f $(EXEC) $(OBJECTS)
+	rm -f $(EXEC_TEST) $(TEST_OBJECTS)
 
 data:
 	git submodule init
 	git submodule update
 
 test: $(TEST_OBJECTS)
-	$(CC) $(CFLAGS) -o $(EXEC_TEST) $(TEST_OBJECTS)
+	make
+	$(CC) $(CFLAGS) -o $(EXEC_TEST) ./src/country.o ./src/sortie.o $(TEST_OBJECTS) -ljansson -lcunit
+	bats test/output.bats
+	./test/suite
