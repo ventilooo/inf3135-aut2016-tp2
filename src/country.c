@@ -38,7 +38,7 @@ int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays) {
     }
 
     if ( indexPays == -1 ) {
-        printf("Erreur, pays invalide ! \n") ;
+        printf("Erreur, pays invalide !\n") ;
         exit(1);
     }
     return indexPays;
@@ -131,7 +131,7 @@ struct region_info *getPaysMemeRegion(json_t *objetJson,int nombreTotalPays, cha
             && (strcasecmp(REGION, "Oceania")) != 0 && (strcasecmp(REGION, "Europe")) != 0
             && (strcasecmp(REGION, "Africa")) != 0  ) {
 
-        printf("Erreur, région invalide ! \n");
+        printf("Erreur, région invalide !\n");
         exit(1);
 
     }
@@ -199,7 +199,7 @@ void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTo
         // Récupération du nom du pays en question :
         nomPays = getNomPays(objetJson, indexPays);
 
-        printf("Name: %s \n",nomPays);
+        printf("Name: %s\n",nomPays);
         printf("Code: ");
         // Conversion du code à 3 lettres en Majuscules pour l'affichage :
         
@@ -212,19 +212,19 @@ void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTo
         if ( countries->SHOWCAPITAL) {
             // Récupération de la capitale du pays en question :
             capitale = getCapitale(objetJson, indexPays); 
-            printf("Capital: %s \n",capitale); 
+            printf("Capital: %s\n",capitale); 
         }  
         if ( countries->SHOWLANGUAGES ) {
             // Affichage des langues :
             char strLangues[MAXLENGTHLANGUES] = "";
             getLangues(objetJson, indexPays, strLangues);
-            printf("Languages: %s \n",strLangues);
+            printf("Languages: %s\n",strLangues);
         }
         if ( countries->SHOWBORDERS ) {
             // Affichage des borders :
             char strBorders[MAXLENGTHBORDERS] = "";
             getBorders(objetJson, indexPays, strBorders);
-            printf("Borders: %s \n",strBorders);
+            printf("Borders: %s\n",strBorders);
         }
     } else if ( countries->SHOWREGION ) {
 
@@ -235,16 +235,16 @@ void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTo
             int indexCible = r->listeIndexPays[j] ; 
             // Récupération du nom du pays en question : 
             nomPays = getNomPays(objetJson, indexCible);
-            printf("Name: %s \n",nomPays) ; 
+            printf("Name: %s\n",nomPays) ; 
 
             // Récupération du code à 3 lettre du pays en question : 
             codePays = getCode(objetJson,indexCible);
-            printf("Code: %s \n",codePays) ;
+            printf("Code: %s\n",codePays) ;
 
             if ( countries->SHOWCAPITAL) {
                 // Récupération de la capitale du pays en question :
                 capitale = getCapitale(objetJson, indexCible); 
-                printf("Capital: %s \n",capitale) ; 
+                printf("Capital: %s\n",capitale) ; 
             }  
             if ( countries->SHOWLANGUAGES ) {
                 // Affichage des langues : 
@@ -256,7 +256,7 @@ void affichage(struct Countries_args *countries, json_t *objetJson ,int nombreTo
                 // Affichage des borders : 
                 char strBorders[MAXLENGTHBORDERS] = "" ;
                 getBorders(objetJson, indexCible, strBorders); 
-                printf("Borders: %s \n",strBorders) ;
+                printf("Borders: %s\n",strBorders) ;
             }
 
         }
