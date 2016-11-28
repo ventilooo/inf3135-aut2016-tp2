@@ -167,7 +167,6 @@ void paysOut(struct json_t *objetJson, char * filename,int indexPays,struct Coun
 void mergeBordersTofGraph(FILE *fGraph, FILE *borders){
 	
 	FILE *bordersReader;
-	printf("mergetoFile\n");
 	int c;
     fclose(borders);
     bordersReader = fopen("bordersDot", "r");
@@ -179,7 +178,6 @@ void mergeBordersTofGraph(FILE *fGraph, FILE *borders){
         while ((c = getc(bordersReader)) != EOF){
            fprintf(fGraph, "%c", c);
         }
-        printf("mergetoFileClose\n");
         fclose(bordersReader);
        
         remove("bordersDot") ;
@@ -197,6 +195,7 @@ void affichageDot(){
     int c;
     FILE *fDot;
     fDot = fopen("dot.dot", "r");
+
 
     if(fDot){
         while ((c = getc(fDot)) != EOF){

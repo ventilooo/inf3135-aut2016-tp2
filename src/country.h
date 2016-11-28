@@ -63,7 +63,7 @@ int getIndexPays(json_t *objetJson, char* pays, int nombreTotalPays);
  * @param *objetJson (contenue de la base de donne json)
  * @param indexPays (index d'un pays)
 */ 
-const char* getCapitale(json_t *objetJson, int indexPays);
+char* getCapitale(json_t *objetJson, int indexPays);
 
 /*
  * Reddtourne la chaine de caractere correspondant au nom officiel d'un d'un pays.
@@ -71,7 +71,7 @@ const char* getCapitale(json_t *objetJson, int indexPays);
  * @param *objetJson (contenue de la base de donne json)
  * @param indexPays (index d'un pays)
 */ 
-const char* getNomPays(json_t *objetJson, int indexPays);
+char* getNomPays(json_t *objetJson, int indexPays);
 
 /*
  * Reddtourne la chaine de caractere correspondant au nom officiel d'un d'un pays.
