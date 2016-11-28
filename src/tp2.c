@@ -25,6 +25,9 @@ int main(int argc, char *argv[]){
     //Init objet Json du dossier data 
     json_t *objetJson ; 
     objetJson = json_load_file("./data/countries/countries.json", 0, NULL);
+    if (objetJson == NULL){
+        objetJson = json_load_file("../data/countries/countries.json", 0, NULL);
+    }
 
     // Récupération du nombre total de pays du fichier Json : 
     int nombreTotalPays = json_array_size(objetJson);
