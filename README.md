@@ -8,7 +8,7 @@
 
 Il s'agit d'un programme qui lis une base donne en Json qui contient des information sur des pays.
 
-En fonction des option choisie il genere different format de reponse:
+En fonction des optionx choisie il genere different format de reponse:
 * text
 * .png
 * .dot
@@ -40,10 +40,47 @@ En fonction des option choisie il genere different format de reponse:
 
 ## Fonctionnement
 
-Expliquez brièvement comment utiliser votre programme avec au moins trois
-exemples d'utilisation (commande lancée et résultat affiché).  Assurez-vous que
-les exemples de commande lancée et de résultats obtenus sont formatés
-correctement à l'aide de Markdown.
+### 1.
+* **input:** : `bin/tp2 --country can`
+* **output** : `Name: Canada
+            Code: CAN`
+
+### 2.
+* **input:** : `bin/tp2 --region oceania --show-languages --show-capital --show-borders
+Name: American Samoa`
+* **output** : `Code: ASM
+Capital: Pago Pago
+Languages: English, Samoan
+Borders:
+Name: Australia
+Code: AUS
+Capital: Canberra
+Languages: English
+Borders:
+...
+Name: Samoa
+Code: WSM
+Capital: Apia
+Languages: English, Samoan
+Borders:
+`
+
+### 3.
+* **input:** : `bin/tp2 --country can --show-languages --show-capital --show-borders \
+> --show-flag --output-format dot`
+* **output** : `graph {
+    can [
+        shape = none,
+        label = <<table border="0" cellspacing="0">
+            <tr><td align="center" border="1" fixedsize="true" width="200" height="100"><img src="can.png" scale="true"/></td></tr>
+            <tr><td align="left" border="1"><b>Name</b>: Canada</td></tr>
+            <tr><td align="left" border="1"><b>Code</b>: CAN</td></tr>
+            <tr><td align="left" border="1"><b>Capital</b>: Ottawa</td></tr>
+            <tr><td align="left" border="1"><b>Language</b>: French, English</td></tr>
+            <tr><td align="left" border="1"><b>Borders</b>: USA</td></tr>
+        </table>>
+    ];
+}`
 
 ## Contenu du projet
 
