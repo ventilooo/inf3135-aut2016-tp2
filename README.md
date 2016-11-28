@@ -109,4 +109,6 @@ Exemples d'utilisation : ( Étant donné que les régions affichent plusieurs r�
 
 ## Statut
 
-Complété , sauf que les frontières entre les pays sont affichées en double . 
+Complété , sauf que les frontières entre les pays sont affichées en double et un warning est causé par
+une methode de jansson qui retourne un const et qui a du être mise dans un string. Il n'est cependant
+pas modifiée.
